@@ -5,7 +5,7 @@ using UnityEngine;
 namespace StatsPlus
 {
     /// <summary>
-    /// This is the central class of the StatsPlus-system
+    /// This is the central class of the StatsPlus-system.
     /// </summary>
     public class StatsPlus
     {

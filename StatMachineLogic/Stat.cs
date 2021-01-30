@@ -5,7 +5,7 @@ using UnityEngine;
 namespace StatsPlus
 {
     /// <summary>
-    /// a Stat is a parameter of an ingame mechanic, for example a damage modifier
+    /// A Stat is a parameter of an ingame mechanic, for example a damage modifier.
     /// </summary>
     public class Stat
     {
