@@ -14,7 +14,7 @@ namespace StatsPlus
         public Statset Statset;
 
         public float GetStatValue(string StatName) {
-            Stat Stat = Statset.GetStat(StatName);
+            Stat Stat = Statset.GetValue(StatName);
             if (Stat is StatFloat)
             {
                 return ((StatFloat)Stat).Value;
