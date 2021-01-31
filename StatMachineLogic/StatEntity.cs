@@ -8,7 +8,7 @@ namespace StatsPlus
     /// <summary>
     /// The StatEntity class represents one specific game entity
     /// </summary>
-    public class StatEntity
+    public class StatEntity : Named
     {
         
     }

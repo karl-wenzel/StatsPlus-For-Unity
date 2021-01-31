@@ -10,11 +10,24 @@ namespace StatsPlus
     /// </summary>
     public class SkillEffectAdd : SkillEffect
     {
-        public float amountToAdd;
+        public readonly float amountToAdd;
 
         public SkillEffectAdd(string affectsStatName, bool ignoreSkillStrength, float amountToAdd) : base(affectsStatName, ignoreSkillStrength)
         {
             this.amountToAdd = amountToAdd;
+        }
+
+        public override object ProcessStat(Stat stat, object value)
+        {
+            if (stat is StatFloat)
+            {
+                return (float)value + amountToAdd;
+            }
+            if (stat is StatInt)
+            {
+                return (int)((float)value + amountToAdd);
+            }
+            return value;
         }
     }
 }

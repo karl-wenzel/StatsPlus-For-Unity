@@ -22,15 +22,23 @@ namespace StatsPlus
         /// </summary>
         /// <param name="Owner"></param>
         /// <returns>true if the creation of the statMachine was successfull, false if this owner already controls a stat machine.</returns>
-        public bool CreateStatMachine(StatEntity Owner) {
+        public StatMachine CreateStatMachine(StatEntity Owner, Statset Statset) {
             if (!StatMachines.ContainsKey(Owner)) {
-                StatMachines.Add(Owner, new StatMachine(Owner, null)); //TODO: replace null pointer
-                return true;
+                StatMachine newMachine = new StatMachine(Owner, Statset); //TODO: replace null pointer
+                StatMachines.Add(Owner, newMachine);
+                return newMachine;
             }
             Debug.LogError("Only one stat machine per owner allowed: <b>" + Owner.ToString() + "</b> already controls a stat machine.");
-            return false;
+            return default;
         }
 
+        public StatMachine GetStatMachine(StatEntity Owner) {
+            if (StatMachines.ContainsKey(Owner))
+            {
+                return StatMachines[Owner];
+            }
+            else return default;
+        }
     }
 
 }
