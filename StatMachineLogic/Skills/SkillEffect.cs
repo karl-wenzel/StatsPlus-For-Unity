@@ -10,5 +10,13 @@ namespace StatsPlus
     /// </summary>
     public class SkillEffect
     {
+        public string affectsStatName;
+        public bool ignoreSkillStrength;
+
+        public SkillEffect(string affectsStatName, bool ignoreSkillStrength)
+        {
+            this.affectsStatName = affectsStatName;
+            this.ignoreSkillStrength = ignoreSkillStrength;
+        }
     }
 }

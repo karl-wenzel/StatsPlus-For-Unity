@@ -13,6 +13,12 @@ namespace StatsPlus
         public StatEntity Owner;
         public Statset Statset;
 
+        public StatMachine(StatEntity owner, Statset statset)
+        {
+            Owner = owner;
+            Statset = statset;
+        }
+
         public float GetStatValue(string StatName) {
             Stat Stat = Statset.GetValue(StatName);
             if (Stat is StatFloat)

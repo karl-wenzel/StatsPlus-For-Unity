@@ -15,13 +15,20 @@ namespace StatsPlus
         /// </summary>
         public static StatsPlus Instance;
 
+        public Dictionary<StatEntity, StatMachine> StatMachines;
+
         /// <summary>
         /// creates a new StatMachine and registers it in the system. It can be found again using its Owner.
         /// </summary>
         /// <param name="Owner"></param>
-        /// <returns>true if the creation of the statMachine was successfull</returns>
+        /// <returns>true if the creation of the statMachine was successfull, false if this owner already controls a stat machine.</returns>
         public bool CreateStatMachine(StatEntity Owner) {
-            return true;
+            if (!StatMachines.ContainsKey(Owner)) {
+                StatMachines.Add(Owner, new StatMachine(Owner, null)); //TODO: replace null pointer
+                return true;
+            }
+            Debug.LogError("Only one stat machine per owner allowed: <b>" + Owner.ToString() + "</b> already controls a stat machine.");
+            return false;
         }
 
     }
