@@ -6,9 +6,11 @@ using StatsPlus;
 namespace StatsPlus
 {
     /// <summary>
-    /// A SkillEffect describes one effect a skill has on the behaviour of the stat machine.
+    /// The StatEntity class represents one specific game entity
     /// </summary>
-    public class SkillEffect
+    public class StatEntity
     {
+        
     }
+
 }

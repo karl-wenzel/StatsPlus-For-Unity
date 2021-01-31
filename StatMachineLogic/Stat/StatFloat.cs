@@ -6,9 +6,11 @@ using StatsPlus;
 namespace StatsPlus
 {
     /// <summary>
-    /// A SkillEffect describes one effect a skill has on the behaviour of the stat machine.
+    /// A StatFloat is a special Stat, which stores a float.
     /// </summary>
-    public class SkillEffect
+    public class StatFloat : Stat
     {
+        public float Value = 0f;
     }
+
 }

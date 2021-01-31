@@ -6,9 +6,11 @@ using StatsPlus;
 namespace StatsPlus
 {
     /// <summary>
-    /// A SkillEffect describes one effect a skill has on the behaviour of the stat machine.
+    /// A StatBoolean is a special Stat, which stores a boolean.
     /// </summary>
-    public class SkillEffect
+    public class StatBool : Stat
     {
+        public bool Value = false;
     }
+
 }

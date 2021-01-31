@@ -6,9 +6,11 @@ using StatsPlus;
 namespace StatsPlus
 {
     /// <summary>
-    /// A SkillEffect describes one effect a skill has on the behaviour of the stat machine.
+    /// A StatInt is a special Stat, which stores an integer.
     /// </summary>
-    public class SkillEffect
+    public class StatInt : Stat
     {
+        public int Value = 0;
     }
+
 }
