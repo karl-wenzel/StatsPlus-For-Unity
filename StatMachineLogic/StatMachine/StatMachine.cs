@@ -21,18 +21,61 @@ namespace StatsPlus
             Statset = statset;
         }
 
-        public float GetStatValue(string StatName)
+        /// <summary>
+        /// Gets the value of a Stat for you, including the effects of all skills.
+        /// </summary>
+        /// <param name="StatName">The unique name-identifier of the Stat.</param>
+        /// <returns>The evaluated Stat or 0 if the Stat could not be evaluated</returns>
+        public float GetStatValueFloat(string StatName)
         {
             Stat Stat = Statset.GetValue(StatName);
             if (Stat is StatFloat)
             {
-                return ((StatFloat)Stat).Value;
+                return (float)EvaluateStat(Stat);
             }
             else
             {
                 Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain a float.");
             }
             return 0f;
+        }
+
+        /// <summary>
+        /// Gets the value of a Stat for you, including the effects of all skills.
+        /// </summary>
+        /// <param name="StatName">The unique name-identifier of the Stat.</param>
+        /// <returns>The evaluated Stat or false if the Stat could not be evaluated</returns>
+        public bool GetStatValueBool(string StatName)
+        {
+            Stat Stat = Statset.GetValue(StatName);
+            if (Stat is StatBool)
+            {
+                return (bool)EvaluateStat(Stat);
+            }
+            else
+            {
+                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain a boolean.");
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Gets the value of a Stat for you, including the effects of all skills.
+        /// </summary>
+        /// <param name="StatName">The unique name-identifier of the Stat.</param>
+        /// <returns>The evaluated Stat or 0 if the Stat could not be evaluated</returns>
+        public int GetStatValueInt(string StatName)
+        {
+            Stat Stat = Statset.GetValue(StatName);
+            if (Stat is StatInt)
+            {
+                return (int)EvaluateStat(Stat);
+            }
+            else
+            {
+                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain an integer.");
+            }
+            return 0;
         }
 
         /// <summary>
