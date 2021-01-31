@@ -11,6 +11,11 @@ namespace StatsPlus
     public class StatInt : Stat
     {
         public int Value = 0;
+
+        public override object GetValueAsObject()
+        {
+            return Value;
+        }
     }
 
 }

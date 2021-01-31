@@ -11,6 +11,11 @@ namespace StatsPlus
     public class StatBool : Stat
     {
         public bool Value = false;
+
+        public override object GetValueAsObject()
+        {
+            return Value;
+        }
     }
 
 }

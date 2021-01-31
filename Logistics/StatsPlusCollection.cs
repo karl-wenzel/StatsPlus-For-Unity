@@ -5,7 +5,10 @@ using StatsPlus;
 
 namespace StatsPlus
 {
-
+    /// <summary>
+    /// A reusable Collection code
+    /// </summary>
+    /// <typeparam name="T">Class type which should be stored in the Collection</typeparam>
     public class StatsPlusCollection<T> where T:Named
     {
         public string Name;

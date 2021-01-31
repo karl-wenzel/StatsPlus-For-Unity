@@ -14,6 +14,17 @@ namespace StatsPlus
         /// a list of all effects the skill has
         /// </summary>
         public List<SkillEffect> Effects = new List<SkillEffect>();
+
+        public object ProcessStat(Stat stat, object value) {
+            foreach (SkillEffect effect in Effects)
+            {
+                if (effect.affectsStatName.Equals(stat.Name))
+                {
+                    value = effect.ProcessStat(stat, value);
+                }
+            }
+            return value;
+        }
     }
 
 }

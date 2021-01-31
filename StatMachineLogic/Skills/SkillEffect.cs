@@ -8,7 +8,7 @@ namespace StatsPlus
     /// <summary>
     /// A SkillEffect describes one effect a skill has on the behaviour of the stat machine.
     /// </summary>
-    public class SkillEffect
+    public abstract class SkillEffect
     {
         public string affectsStatName;
         public bool ignoreSkillStrength;
@@ -17,6 +17,11 @@ namespace StatsPlus
         {
             this.affectsStatName = affectsStatName;
             this.ignoreSkillStrength = ignoreSkillStrength;
+        }
+
+        public virtual object ProcessStat(Stat stat, object value)
+        {
+            return value;
         }
     }
 }

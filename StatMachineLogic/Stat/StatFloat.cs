@@ -11,6 +11,11 @@ namespace StatsPlus
     public class StatFloat : Stat
     {
         public float Value = 0f;
+
+        public override object GetValueAsObject()
+        {
+            return Value;
+        }
     }
 
 }

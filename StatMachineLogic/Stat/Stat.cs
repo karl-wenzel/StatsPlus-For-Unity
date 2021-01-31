@@ -10,7 +10,7 @@ namespace StatsPlus
     /// </summary>
     public abstract class Stat : Named
     {
-
+        public abstract object GetValueAsObject();
     }
 
 }
