@@ -17,7 +17,7 @@ namespace StatsPlus
             return Value;
         }
 
-        public StatBool(bool value, string Name) : base(Name)
+        public StatBool(string Name, bool value) : base(Name)
         {
             Value = value;
         }

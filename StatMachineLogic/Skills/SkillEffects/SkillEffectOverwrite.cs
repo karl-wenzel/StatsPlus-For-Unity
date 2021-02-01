@@ -12,7 +12,7 @@ namespace StatsPlus
     {
         public readonly object newValue;
 
-        public SkillEffectOverwrite(string affectsStatName, bool ignoreSkillStrength, float newValue) : base(affectsStatName, ignoreSkillStrength)
+        public SkillEffectOverwrite(string affectsStatName, object newValue) : base(affectsStatName, true)
         {
             this.newValue = newValue;
         }

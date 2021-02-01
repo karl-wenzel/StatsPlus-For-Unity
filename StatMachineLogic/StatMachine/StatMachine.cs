@@ -79,12 +79,76 @@ namespace StatsPlus
         }
 
         /// <summary>
+        /// Gets the value of a Stat for you. If you know exactly what Stattype to expect, consider using GetStatValueFloat or such instead.
+        /// </summary>
+        /// <param name="StatName">The unique name-identifier of the Stat.</param>
+        /// <returns>The evaluated Stat</returns>
+        public object GetStatValue(string StatName)
+        {
+            Stat Stat = Statset.GetValue(StatName);
+            return EvaluateStat(Stat);
+        }
+
+        /// <summary>
+        /// Moves an Entry to the top of the SkillsetStack
+        /// </summary>
+        /// <param name="EntryToMove"></param>
+        public void MoveStackEntryToTop(SkillsetStackEntry EntryToMove)
+        {
+            RemoveSkillsetStackEntries(EntryToMove);
+            SkillsetStack.Add(EntryToMove);
+        }
+
+        /// <summary>
+        /// Constructs an array with the length of SkillsetStacks size. You can use this array to pass a modified version to ReorderSkillsetStack.
+        /// </summary>
+        /// <returns>an array of integers of legnth SkillsetStack.Count, counting up from 0</returns>
+        public int[] GetSkillsetStackOrder() {
+            int[] result = new int[SkillsetStack.Count];
+            for (int i = 0; i < SkillsetStack.Count; i++)
+            {
+                result[i] = i;
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// <para>Reorders the skillsetStack. The passed integer-array should have the same length as the original stack and only contain integers that are not bigger than the Stack.Count-1.</para>
+        /// <para>You can use this method differently though, for example by taking a smaller list of entries than the length of the additional stack, therefore resulting in less stack entries.</para>
+        /// <para>It is not encouraged to use entries twice, except for when setting MakeNewStack to true. Using entries twice without making a new stack will result in unpredictable behaviour.</para>
+        /// </summary>
+        /// <param name="NewOrder">The new order of the skillsetstack</param>
+        /// <param name="MakeNewStack">If this is true, the entries in the stack will be created as though they were new. Note, that this will reset timed entries.</param>
+        public void ReorderSkillsetStack(int[] NewOrder, bool MakeNewStack)
+        {
+            List<SkillsetStackEntry> OriginalStack = new List<SkillsetStackEntry>(SkillsetStack);
+            SkillsetStack.Clear();
+            foreach (int insertIndex in NewOrder)
+            {
+                if (insertIndex >= OriginalStack.Count)
+                {
+                    Debug.LogError("Reordering entry " + NewOrder + " failed. Index bigger than Stack height.");
+                }
+                else
+                {
+                    if (MakeNewStack)
+                    {
+                        AddSkillsetStackEntry(OriginalStack[insertIndex].Skillset, OriginalStack[insertIndex].Length, OriginalStack[insertIndex].Strength, OriginalStack[insertIndex].IgnoreTimeScale);
+                    }
+                    else {
+                        SkillsetStack.Add(OriginalStack[insertIndex]);
+                    }
+                }
+            }
+        }
+
+        /// <summary>
         /// Place a new entry on the SkillsetStack of this StatMachine.
         /// </summary>
         /// <param name="skillset">A Reference to the Skillset which should be added.</param>
         /// <param name="length">How long will this skillset be added? Pass -1 for infinite duration.
         /// You can still remove infinite duration SkillStackEntries from the stack by saving the reference returned by this method.
-        /// Use RemoveSkillsetStackEntryWithReference(SkillsetStackEntry) to remove the created entry using this reference.</param>
+        /// Use RemoveSkillsetStackEntries(SkillsetStackEntry[]) to remove the created entry using this reference.</param>
         /// <param name="strength">A strength modifier, which may or may not be used by some of the skills.</param>
         /// <param name="ignoreTimeScale">Will the time calculation be performed in unscaled time?</param>
         public SkillsetStackEntry AddSkillsetStackEntry(Skillset skillset, float length, float strength, bool ignoreTimeScale)
@@ -95,18 +159,22 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// Remove a SkillsetStackEntry using a saved reference. Returns false if the entry could not be found in the Stack.
+        /// Removing SkillsetStackEntries using saved references.
         /// </summary>
-        /// <param name="skillsetStackEntry">The reference to remove</param>
-        /// <returns>True if this Entry was found in the Stack and removed successfully, else false.</returns>
-        public bool RemoveSkillsetStackEntryWithReference(SkillsetStackEntry skillsetStackEntry)
+        /// <param name="skillsetStackEntriesToRemove">The references to remove</param>
+        public void RemoveSkillsetStackEntries(params SkillsetStackEntry[] skillsetStackEntriesToRemove)
         {
-            if (SkillsetStack.Contains(skillsetStackEntry))
+            foreach (SkillsetStackEntry entryToRemove in skillsetStackEntriesToRemove)
             {
-                SkillsetStack.Remove(skillsetStackEntry);
-                return true;
+                if (SkillsetStack.Contains(entryToRemove))
+                {
+                    SkillsetStack.Remove(entryToRemove);
+                }
+                else
+                {
+                    Debug.LogError("Error while removing skillset entry: SkillsetStackEntry of skillset " + entryToRemove.Skillset.Name + " could not be found");
+                }
             }
-            return false;
         }
 
         /// <summary>

@@ -25,6 +25,10 @@ namespace StatsPlus
             }
             return value;
         }
+
+        public Skill(string Name, params SkillEffect[] InitialEffects) : base(Name) {
+            Effects.AddRange(InitialEffects);
+        }
     }
 
 }

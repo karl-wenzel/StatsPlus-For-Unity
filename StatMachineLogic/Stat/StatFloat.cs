@@ -17,7 +17,7 @@ namespace StatsPlus
             return Value;
         }
 
-        public StatFloat(float value, string Name) : base(Name)
+        public StatFloat(string Name, float value) : base(Name)
         {
             Value = value;
         }

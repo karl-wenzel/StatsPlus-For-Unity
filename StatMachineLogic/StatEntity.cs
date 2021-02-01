@@ -10,7 +10,7 @@ namespace StatsPlus
     /// </summary>
     public class StatEntity : Named
     {
-        
+        public StatEntity(string Name) : base(Name) { }
     }
 
 }
