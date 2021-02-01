@@ -10,6 +10,8 @@ namespace StatsPlus
     /// </summary>
     public abstract class Stat : Named
     {
+        protected Stat(string Name) : base(Name) {}
+
         public abstract object GetValueAsObject();
     }
 

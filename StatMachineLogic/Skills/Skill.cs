@@ -15,12 +15,12 @@ namespace StatsPlus
         /// </summary>
         public List<SkillEffect> Effects = new List<SkillEffect>();
 
-        public object ProcessStat(Stat stat, object value) {
+        public object ProcessStat(Stat stat, object value, float strength) {
             foreach (SkillEffect effect in Effects)
             {
                 if (effect.affectsStatName.Equals(stat.Name))
                 {
-                    value = effect.ProcessStat(stat, value);
+                    value = effect.ProcessStat(stat, value, strength);
                 }
             }
             return value;

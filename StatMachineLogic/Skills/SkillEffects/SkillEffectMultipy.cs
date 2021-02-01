@@ -20,7 +20,7 @@ namespace StatsPlus
             this.AddToInitialValue = UseInitialValue;
         }
 
-        public override object ProcessStat(Stat stat, object value)
+        public override object ProcessStat(Stat stat, object value, float strength)
         {
             if (stat is StatFloat)
             {

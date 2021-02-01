@@ -16,6 +16,11 @@ namespace StatsPlus
         {
             return Value;
         }
+
+        public StatInt(string Name, int value) : base(Name)
+        {
+            Value = value;
+        }
     }
 
 }

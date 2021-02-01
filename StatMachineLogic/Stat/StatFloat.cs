@@ -16,6 +16,11 @@ namespace StatsPlus
         {
             return Value;
         }
+
+        public StatFloat(float value, string Name) : base(Name)
+        {
+            Value = value;
+        }
     }
 
 }

@@ -139,7 +139,7 @@ namespace StatsPlus
             object value = stat.GetValueAsObject();
             foreach (SkillsetStackEntry entry in SkillsetStack)
             {
-                value = entry.Skillset.ProcessStat(stat, value);
+                value = entry.Skillset.ProcessStat(stat, value, entry.Strength);
             }
             return value;
         }

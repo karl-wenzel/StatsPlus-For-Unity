@@ -17,7 +17,7 @@ namespace StatsPlus
             this.newValue = newValue;
         }
 
-        public override object ProcessStat(Stat stat, object value)
+        public override object ProcessStat(Stat stat, object value, float strength)
         {
             if (stat is StatFloat)
             {

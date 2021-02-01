@@ -13,10 +13,10 @@ namespace StatsPlus
     {
         public Skillset(string Name, params Skill[] InitialData) : base(Name, InitialData) {}
 
-        public object ProcessStat(Stat stat, object value) {
+        public object ProcessStat(Stat stat, object value, float strength) {
             foreach (Skill skill in Data.Values)
             {
-                value = skill.ProcessStat(stat, value);
+                value = skill.ProcessStat(stat, value, strength);
             }
             return value;
         }

@@ -19,9 +19,6 @@ namespace StatsPlus
             this.ignoreSkillStrength = ignoreSkillStrength;
         }
 
-        public abstract object ProcessStat(Stat stat, object value)
-        {
-            return value;
-        }
+        public abstract object ProcessStat(Stat stat, object value, float strength);
     }
 }
