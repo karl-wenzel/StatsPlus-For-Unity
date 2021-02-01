@@ -21,11 +21,11 @@ namespace StatsPlus
         {
             if (stat is StatFloat)
             {
-                return (float)value + amountToAdd;
+                return (float)value + (amountToAdd * strength);
             }
             if (stat is StatInt)
             {
-                return (int)((float)value + amountToAdd);
+                return (int)((float)value + (amountToAdd * strength));
             }
             return value;
         }

@@ -9,7 +9,7 @@ namespace StatsPlus
     public class SkillsetStackEntry
     {
         public readonly Skillset Skillset;
-        public readonly float Strength;
+        public float Strength;
         public readonly float Length;
         public readonly float EntryTime;
         public readonly bool IgnoreTimeScale;

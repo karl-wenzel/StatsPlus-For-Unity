@@ -24,11 +24,11 @@ namespace StatsPlus
         {
             if (stat is StatFloat)
             {
-                return AddToInitialValue ? (float)stat.GetValueAsObject() * (MultiplyWith-1f) + (float)value : (float)value * MultiplyWith;
+                return AddToInitialValue ? (float)stat.GetValueAsObject() * (MultiplyWith-1f) * strength + (float)value : (float)value * (MultiplyWith * strength);
             }
             if (stat is StatInt)
             {
-                return (int)(AddToInitialValue ? (float)stat.GetValueAsObject() * (MultiplyWith - 1f) + (float)value : (float)value * MultiplyWith);
+                return (int)(AddToInitialValue ? (float)stat.GetValueAsObject() * (MultiplyWith-1f) * strength + (float)value : (float)value * (MultiplyWith * strength));
             }
             return value;
         }

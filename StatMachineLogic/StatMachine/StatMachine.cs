@@ -188,7 +188,7 @@ namespace StatsPlus
             for (int i = 0; i < SkillsetStack.Count; i++)
             {
                 if (SkillsetStack[i].EntryTime != -1
-                    && SkillsetStack[i].EntryTime + SkillsetStack[i].Length > (SkillsetStack[i].IgnoreTimeScale ? Time.realtimeSinceStartup : Time.time))
+                    && SkillsetStack[i].EntryTime + SkillsetStack[i].Length < (SkillsetStack[i].IgnoreTimeScale ? Time.realtimeSinceStartup : Time.time))
                 {
                     SkillsetStack.RemoveAt(i);
                     i--;

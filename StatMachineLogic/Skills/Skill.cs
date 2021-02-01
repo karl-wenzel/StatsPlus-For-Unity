@@ -20,7 +20,7 @@ namespace StatsPlus
             {
                 if (effect.affectsStatName.Equals(stat.Name))
                 {
-                    value = effect.ProcessStat(stat, value, strength);
+                    value = effect.ProcessStat(stat, value, effect.ignoreSkillStrength ? 1f : strength);
                 }
             }
             return value;
