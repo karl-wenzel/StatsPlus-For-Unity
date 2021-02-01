@@ -79,6 +79,13 @@ namespace StatsPlus
         }
 
         /// <summary>
+        /// Removes all entries from the SkillsetStack.
+        /// </summary>
+        public void ClearSkillStack() {
+            ReorderSkillsetStack(new int[] { }, true);
+        }
+
+        /// <summary>
         /// Gets the value of a Stat for you. If you know exactly what Stattype to expect, consider using GetStatValueFloat or such instead.
         /// </summary>
         /// <param name="StatName">The unique name-identifier of the Stat.</param>
