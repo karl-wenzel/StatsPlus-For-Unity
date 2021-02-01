@@ -59,7 +59,6 @@ namespace StatsPlus
                 {
                     OpenedBrackets--;
                     continue;
-
                 }
             }
             if (OpenedBrackets > 0) {
