@@ -26,9 +26,56 @@ namespace StatsPlus
         /// </summary>
         /// <param name="StatName">The name of the Stat to apply to.</param>
         /// <param name="Stack">The SkillsetStackEntries that will be applied to this Stat.</param>
-        public void Apply(string StatName, params SkillsetStackEntry[] Stack) {
+        public void Apply(string StatName, bool AutomaticallyRemove, params SkillsetStackEntry[] Stack)
+        {
             Stat ApplyToStat = Statset.GetValue(StatName);
             ApplyToStat.OverwriteValue(EvaluateStat(ApplyToStat, new List<SkillsetStackEntry>(Stack)));
+            if (AutomaticallyRemove)
+            {
+                foreach (SkillsetStackEntry Entry in Stack)
+                {
+                    SkillsetStack.Remove(Entry);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Overwrites all stat with their values calculated after applying the passed StackEntries.
+        /// </summary>
+        /// <param name="Stack">The SkillsetStackEntries that will be applied to the Statset.</param>
+        public void Apply(bool AutomaticallyRemove, params SkillsetStackEntry[] Stack)
+        {
+            foreach (Stat ApplyToStat in Statset.Data.Values)
+            {
+                ApplyToStat.OverwriteValue(EvaluateStat(ApplyToStat, new List<SkillsetStackEntry>(Stack)));
+            }
+            if (AutomaticallyRemove)
+            {
+                foreach (SkillsetStackEntry Entry in Stack)
+                {
+                    SkillsetStack.Remove(Entry);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Overwrites all stats in the given statset with their values calculated after applying the passed StackEntries.
+        /// </summary>
+        /// <param name="Statset">The name of the Statset to apply to.</param>
+        /// <param name="Stack">The SkillsetStackEntries that will be applied to the Statset.</param>
+        public void Apply(Statset statset, bool AutomaticallyRemove, params SkillsetStackEntry[] Stack)
+        {
+            foreach (Stat ApplyToStat in statset.Data.Values)
+            {
+                ApplyToStat.OverwriteValue(EvaluateStat(ApplyToStat, new List<SkillsetStackEntry>(Stack)));
+            }
+            if (AutomaticallyRemove)
+            {
+                foreach (SkillsetStackEntry Entry in Stack)
+                {
+                    SkillsetStack.Remove(Entry);
+                }
+            }
         }
 
         /// <summary>
@@ -180,7 +227,7 @@ namespace StatsPlus
         /// <param name="ignoreTimeScale">Will the time calculation be performed in unscaled time?</param>
         public SkillsetStackEntry AddSkillsetStackEntry(Skillset skillset, float length, float strength, bool ignoreTimeScale)
         {
-            SkillsetStackEntry newEntry = new SkillsetStackEntry(skillset, strength, length, ignoreTimeScale ? Time.realtimeSinceStartup : Time.time, ignoreTimeScale);
+            SkillsetStackEntry newEntry = CreateIndependentStackEntry(skillset, length, strength, ignoreTimeScale);
             SkillsetStack.Add(newEntry);
             return newEntry;
         }
@@ -196,8 +243,20 @@ namespace StatsPlus
         /// <param name="ignoreTimeScale">Will the time calculation be performed in unscaled time?</param>
         public SkillsetStackEntry AddSkillsetStackEntry(Skillset skillset, float length, string strengthFunction, bool ignoreTimeScale)
         {
-            SkillsetStackEntry newEntry = new SkillsetStackEntry(skillset, strengthFunction, length, ignoreTimeScale ? Time.realtimeSinceStartup : Time.time, ignoreTimeScale);
+            SkillsetStackEntry newEntry = CreateIndependentStackEntry(skillset, length, strengthFunction, ignoreTimeScale);
             SkillsetStack.Add(newEntry);
+            return newEntry;
+        }
+
+        public SkillsetStackEntry CreateIndependentStackEntry(Skillset skillset, float length, string strengthFunction, bool ignoreTimeScale)
+        {
+            SkillsetStackEntry newEntry = new SkillsetStackEntry(skillset, strengthFunction, length, ignoreTimeScale ? Time.realtimeSinceStartup : Time.time, ignoreTimeScale);
+            return newEntry;
+        }
+
+        public SkillsetStackEntry CreateIndependentStackEntry(Skillset skillset, float length, float strength, bool ignoreTimeScale)
+        {
+            SkillsetStackEntry newEntry = new SkillsetStackEntry(skillset, strength, length, ignoreTimeScale ? Time.realtimeSinceStartup : Time.time, ignoreTimeScale);
             return newEntry;
         }
 
@@ -233,6 +292,10 @@ namespace StatsPlus
                 if (SkillsetStack[i].EntryTime != -1
                     && SkillsetStack[i].EntryTime + SkillsetStack[i].Length < (SkillsetStack[i].IgnoreTimeScale ? Time.realtimeSinceStartup : Time.time))
                 {
+                    if (SkillsetStack[i].applyAfterLifetime)
+                    {
+                        Apply(false, SkillsetStack[i]);
+                    }
                     SkillsetStack.RemoveAt(i);
                     i--;
                 }
@@ -257,7 +320,8 @@ namespace StatsPlus
                 {
                     Strength = entry.Strength;
                 }
-                else {
+                else
+                {
                     Strength = FunctionSolver.SolveSimpleLiteral(entry.StrengthFunction, variableAssignments);
                 }
                 value = entry.Skillset.ProcessStat(stat, value, Strength);

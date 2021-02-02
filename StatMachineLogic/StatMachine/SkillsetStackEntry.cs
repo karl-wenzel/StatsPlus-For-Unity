@@ -13,7 +13,9 @@ namespace StatsPlus
         public string StrengthFunction;
         public readonly float Length;
         public readonly float EntryTime;
+
         public readonly bool IgnoreTimeScale;
+        public bool applyAfterLifetime = false;
 
         public SkillsetStackEntry(Skillset skillset, float strength, float length, float entryTime, bool ignoreTimeScale)
         {
@@ -41,6 +43,16 @@ namespace StatsPlus
             Length = length;
             EntryTime = entryTime;
             IgnoreTimeScale = ignoreTimeScale;
+        }
+
+        public SkillsetStackEntry ApplyAfterLifetime() {
+            applyAfterLifetime = true;
+            return this;
+        }
+
+        public override string ToString()
+        {
+            return Skillset.ToString();
         }
     }
 }

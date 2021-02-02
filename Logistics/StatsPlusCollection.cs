@@ -9,7 +9,7 @@ namespace StatsPlus
     /// A reusable Collection code
     /// </summary>
     /// <typeparam name="T">Class type which should be stored in the Collection</typeparam>
-    public class StatsPlusCollection<T> where T:Named
+    public class StatsPlusCollection<T> where T : Named
     {
         public string Name;
         public Dictionary<string, T> Data = new Dictionary<string, T>();
@@ -34,6 +34,7 @@ namespace StatsPlus
             {
                 return Data[IdName];
             }
+            Debug.LogError("Couldn't find " + IdName + " in collection.");
             return default;
         }
 
@@ -58,14 +59,36 @@ namespace StatsPlus
         /// Removes a Value from the collection using its name. Logs a friendly error if this key is not present.
         /// </summary>
         /// <param name="IdName">The Name of this named object.</param>
-        public void RemoveValueByName(string IdName) {
+        public void RemoveValueByName(string IdName)
+        {
             if (Data.ContainsKey(IdName))
             {
                 Data.Remove(IdName);
             }
-            else {
+            else
+            {
                 Debug.LogError("The IdName: " + IdName + " could not be found in the collection " + Name + ".");
             }
+        }
+
+        /// <summary>
+        /// Removes all entries from the collection.
+        /// </summary>
+        /// <returns>A reference to the Collection</returns>
+        public StatsPlusCollection<T> Clear()
+        {
+            Data.Clear();
+            return this;
+        }
+
+        public override string ToString()
+        {
+            string toString = "Collection with " + Data.Count + " entries: ";
+            foreach (string key in Data.Keys)
+            {
+                toString += key + " ";
+            }
+            return toString;
         }
     }
 

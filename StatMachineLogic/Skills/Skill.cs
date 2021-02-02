@@ -29,6 +29,23 @@ namespace StatsPlus
         public Skill(string Name, params SkillEffect[] InitialEffects) : base(Name) {
             Effects.AddRange(InitialEffects);
         }
+
+        public Skill AddEffect(SkillEffect newEffect) {
+            Effects.Add(newEffect);
+            return this;
+        }
+
+        public Skill RemoveEffect(int atIndex)
+        {
+            if (Effects.Count > atIndex)
+            {
+                Effects.RemoveAt(atIndex);
+            }
+            else {
+                Debug.LogError("Couldn't remove effect at " + atIndex + " because the Skill only has " + Effects.Count + " effects.");
+            }
+            return this;
+        }
     }
 
 }
