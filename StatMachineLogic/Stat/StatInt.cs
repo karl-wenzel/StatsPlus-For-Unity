@@ -17,6 +17,11 @@ namespace StatsPlus
             return Value;
         }
 
+        public override void OverwriteValue(object newValue)
+        {
+            Value = (int)newValue;
+        }
+
         public StatInt(string Name, int value) : base(Name)
         {
             Value = value;

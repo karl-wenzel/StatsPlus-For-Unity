@@ -17,6 +17,11 @@ namespace StatsPlus
             return Value;
         }
 
+        public override void OverwriteValue(object newValue)
+        {
+            Value = (bool)newValue;
+        }
+
         public StatBool(string Name, bool value) : base(Name)
         {
             Value = value;

@@ -12,7 +12,17 @@ namespace StatsPlus
     {
         protected Stat(string Name) : base(Name) {}
 
+        /// <summary>
+        /// Returns the Stat value as object.
+        /// </summary>
+        /// <returns>The Stat value.</returns>
         public abstract object GetValueAsObject();
+
+        /// <summary>
+        /// Overwrites the current value of the stat. Use with caution.
+        /// </summary>
+        /// <param name="newValue">The new value of the stat.</param>
+        public abstract void OverwriteValue(object newValue);
     }
 
 }

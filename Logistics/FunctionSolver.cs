@@ -9,24 +9,29 @@ namespace StatsPlus
         public static float NeutralElementMultiplication = 1f;
         public static float NeutralElementAddition = 0f;
 
-        public struct SatisfyVariable
-        {
-            public string VariableName;
-            public float VariableValue;
-        }
 
         public class VariableAssignments
         {
-            public List<SatisfyVariable> Data = new List<SatisfyVariable>();
+            public Dictionary<string, float> Data = new Dictionary<string, float>();
             public VariableAssignments AddVariable(string variableName, float variableValue)
             {
-                Data.Add(new SatisfyVariable { VariableName = variableName, VariableValue = variableValue });
+                Data.Add(variableName, variableValue);
+                return this;
+            }
+            public VariableAssignments AddOrReplaceVariable(string variableName, float variableValue) {
+                if (Data.ContainsKey(variableName))
+                {
+                    Data[variableName] = variableValue;
+                }
+                else {
+                    Data.Add(variableName, variableValue);
+                }
                 return this;
             }
         }
 
         /// <summary>
-        /// use this to check if your literal parts that are not allowed and will result in unpredictable behaviour if you try to solve them.
+        /// Use this to check if your literal doesn't contains parts that are not allowed and won't result in unpredictable behaviour if you try to solve it.
         /// </summary>
         /// <param name="Literal"></param>
         /// <returns></returns>
@@ -87,9 +92,9 @@ namespace StatsPlus
         /// <returns>The result of the evaluated literal.</returns>
         public static float SolveSimpleLiteral(string Literal, VariableAssignments Assignments)
         {
-            foreach (SatisfyVariable variableAssignment in Assignments.Data)
+            foreach (string variableName in Assignments.Data.Keys)
             {
-                Literal = Literal.Replace(variableAssignment.VariableName, variableAssignment.VariableValue + "");
+                Literal = Literal.Replace(variableName, Assignments.Data[variableName] + "");
             }
 
             Literal = Literal.Replace("-", "+[-]").Replace("/", "*[/]");

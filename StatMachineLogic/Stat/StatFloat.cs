@@ -17,6 +17,11 @@ namespace StatsPlus
             return Value;
         }
 
+        public override void OverwriteValue(object newValue)
+        {
+            Value = (float)newValue;
+        }
+
         public StatFloat(string Name, float value) : base(Name)
         {
             Value = value;
