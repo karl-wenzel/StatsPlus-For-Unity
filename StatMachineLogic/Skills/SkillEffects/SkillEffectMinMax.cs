@@ -6,53 +6,49 @@ using StatsPlus;
 namespace StatsPlus
 {
     /// <summary>
-    /// With a SkillEffectAdd, a float is added to the stat.
+    /// With a SkillEffectMinMax, you can set a minimum or a maximum for the stat.
     /// </summary>
-    public class SkillEffectAdd : SkillEffect
+    public class SkillEffectMinMax : SkillEffect
     {
-        public readonly float amountToAdd;
         float Maximum;
         bool HasMaximum;
         float Minimum;
         bool HasMinimum;
 
-        public SkillEffectAdd(string affectsStatName, bool ignoreSkillStrength, float amountToAdd) : base(affectsStatName, ignoreSkillStrength)
+        public SkillEffectMinMax(string affectsStatName, bool ignoreSkillStrength) : base(affectsStatName, ignoreSkillStrength)
         {
-            this.amountToAdd = amountToAdd;
         }
 
         public override object ProcessStat(Stat stat, object value, float strength)
         {
-            if (stat is StatFloat)
-            {
-                return (float)value + (amountToAdd * strength);
+            if (HasMaximum) {
+                value = Mathf.Min((float)value, Maximum);
             }
-            if (stat is StatInt)
-            {
-                return (int)((float)value + (amountToAdd * strength));
+            if (HasMinimum) {
+                value = Mathf.Max((float)value, Minimum);
             }
             return base.ProcessStat(stat, value, strength);
         }
 
-        public SkillEffectAdd SetMaximum(float Maximum) {
+        public SkillEffectMinMax SetMaximum(float Maximum) {
             this.Maximum = Maximum;
             HasMaximum = true;
             return this;
         }
 
-        public SkillEffectAdd ResetMaximum() {
+        public SkillEffectMinMax ResetMaximum() {
             HasMaximum = false;
             return this;
         }
 
-        public SkillEffectAdd SetMinimum(float Minimum)
+        public SkillEffectMinMax SetMinimum(float Minimum)
         {
             this.Minimum = Minimum;
             HasMinimum = true;
             return this;
         }
 
-        public SkillEffectAdd ResetMinimum()
+        public SkillEffectMinMax ResetMinimum()
         {
             HasMinimum = false;
             return this;

@@ -24,7 +24,7 @@ namespace StatsPlus
         /// <returns>true if the creation of the statMachine was successfull, false if this owner already controls a stat machine.</returns>
         public StatMachine CreateStatMachine(StatEntity Owner, Statset Statset) {
             if (!StatMachines.ContainsKey(Owner)) {
-                StatMachine newMachine = new StatMachine(Owner, Statset); //TODO: replace null pointer
+                StatMachine newMachine = new StatMachine(Owner, Statset);
                 StatMachines.Add(Owner, newMachine);
                 return newMachine;
             }
@@ -32,12 +32,21 @@ namespace StatsPlus
             return default;
         }
 
+        /// <summary>
+        /// returns a reference to a StatMachine owned by a StatEntity.
+        /// </summary>
+        /// <param name="Owner">The owner of the StatMachine.</param>
+        /// <returns>A reference to the StatMachine or null of no StatMachine was found.</returns>
         public StatMachine GetStatMachine(StatEntity Owner) {
             if (StatMachines.ContainsKey(Owner))
             {
                 return StatMachines[Owner];
             }
-            else return default;
+            else
+            {
+                Debug.LogError("Couldn't find StatMachine for Owner " + Owner.ToString() + ". Mayber you need to create one or the owner is misspelled?");
+                return null;
+            }
         }
     }
 

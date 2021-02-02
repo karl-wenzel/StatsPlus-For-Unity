@@ -30,7 +30,7 @@ namespace StatsPlus
             {
                 return (int)(AddToInitialValue ? (float)stat.GetValueAsObject() * (MultiplyWith-1f) * strength + (float)value : (float)value * (MultiplyWith * strength));
             }
-            return value;
+            return base.ProcessStat(stat, value, strength);
         }
     }
 }

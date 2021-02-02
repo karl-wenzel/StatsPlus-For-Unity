@@ -31,7 +31,7 @@ namespace StatsPlus
             {
                 return (bool)newValue;
             }
-            return value;
+            return base.ProcessStat(stat, value, strength);
         }
     }
 }
