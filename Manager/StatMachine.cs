@@ -228,7 +228,7 @@ namespace StatsPlus
         public SkillsetStackEntry AddSkillsetStackEntry(Skillset skillset, float length, float strength, bool ignoreTimeScale)
         {
             SkillsetStackEntry newEntry = CreateIndependentStackEntry(skillset, length, strength, ignoreTimeScale);
-            SkillsetStack.Add(newEntry);
+            AddSkillsetStackEntry(newEntry);
             return newEntry;
         }
 
@@ -244,8 +244,24 @@ namespace StatsPlus
         public SkillsetStackEntry AddSkillsetStackEntry(Skillset skillset, float length, string strengthFunction, bool ignoreTimeScale)
         {
             SkillsetStackEntry newEntry = CreateIndependentStackEntry(skillset, length, strengthFunction, ignoreTimeScale);
-            SkillsetStack.Add(newEntry);
+            AddSkillsetStackEntry(newEntry);
             return newEntry;
+        }
+
+        /// <summary>
+        /// Adds a finished SkillsetStackEntry to the Stack.
+        /// </summary>
+        /// <param name="Entry">The finished Entry.</param>
+        public void AddSkillsetStackEntry(SkillsetStackEntry Entry) {
+            for (int i = 0; i < SkillsetStack.Count; i++)
+            {
+                if (SkillsetStack[SkillsetStack.Count - i - 1].clippedOnTop == false) {
+                    SkillsetStack.Insert(SkillsetStack.Count - i, Entry);
+                    return;
+                }
+            }
+            SkillsetStack.Insert(0, Entry);
+            return;
         }
 
         public SkillsetStackEntry CreateIndependentStackEntry(Skillset skillset, float length, string strengthFunction, bool ignoreTimeScale)

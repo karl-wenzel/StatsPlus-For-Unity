@@ -43,7 +43,7 @@ namespace StatsPlus
         /// Adds a new value to this Collection while checking, if its already contained in this Collection. Logs a friendly error if already contained.
         /// </summary>
         /// <param name="value">The Value to add.</param>
-        public void AddValue(T value)
+        public StatsPlusCollection<T> AddValue(T value)
         {
             if (!Data.ContainsKey(value.Name))
             {
@@ -53,13 +53,14 @@ namespace StatsPlus
             {
                 Debug.LogError("The Collection <b>" + Name + "</b> already contains an Object named <b>" + value.Name + "</b>.");
             }
+            return this;
         }
 
         /// <summary>
         /// Removes a Value from the collection using its name. Logs a friendly error if this key is not present.
         /// </summary>
         /// <param name="IdName">The Name of this named object.</param>
-        public void RemoveValueByName(string IdName)
+        public StatsPlusCollection<T> RemoveValueByName(string IdName)
         {
             if (Data.ContainsKey(IdName))
             {
@@ -69,6 +70,7 @@ namespace StatsPlus
             {
                 Debug.LogError("The IdName: " + IdName + " could not be found in the collection " + Name + ".");
             }
+            return this;
         }
 
         /// <summary>

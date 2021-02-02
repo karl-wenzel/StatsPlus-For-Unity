@@ -16,6 +16,7 @@ namespace StatsPlus
 
         public readonly bool IgnoreTimeScale;
         public bool applyAfterLifetime = false;
+        public bool clippedOnTop = false;
 
         public SkillsetStackEntry(Skillset skillset, float strength, float length, float entryTime, bool ignoreTimeScale)
         {
@@ -47,6 +48,17 @@ namespace StatsPlus
 
         public SkillsetStackEntry ApplyAfterLifetime() {
             applyAfterLifetime = true;
+            return this;
+        }
+
+        public SkillsetStackEntry ClipOnTop() {
+            clippedOnTop = true;
+            return this;
+        }
+
+        public SkillsetStackEntry ReleaseFromTop()
+        {
+            clippedOnTop = false;
             return this;
         }
 
