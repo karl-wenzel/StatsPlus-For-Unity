@@ -60,6 +60,10 @@ namespace StatsPlus
             return createdCondition;
         }
 
+        public void AddFactToStorage(Fact fact) {
+            FactStorage.AddValue(fact);
+        }
+
         /// <summary>
         /// Searches for a requested Stat and overwrites the default value of this Stat with the value calculated after applying the StackEntries passed.
         /// </summary>

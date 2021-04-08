@@ -27,7 +27,6 @@ namespace StatsPlus
         /// Returns a value from this collection, identified by its name.
         /// </summary>
         /// <param name="IdName">The Name of this named object.</param>
-        /// <returns></returns>
         public T GetValue(string IdName)
         {
             if (Data.ContainsKey(IdName))
@@ -38,6 +37,23 @@ namespace StatsPlus
             return default;
         }
 
+        /// <summary>
+        /// Returns true if the collections contains a value with this id. If true, overwrites objectFound with this object.
+        /// </summary>
+        /// <param name="IdName">The Name of this named object.</param>
+        public bool HasValue(string IdName, out T objectFound)
+        {
+            if (Data.ContainsKey(IdName))
+            {
+                objectFound = Data[IdName];
+                return true;
+            }
+            else {
+                objectFound = default;
+                return false;
+            }
+        }
+
 
         /// <summary>
         /// Adds a new value to this Collection while checking, if its already contained in this Collection. Logs a friendly error if already contained.
@@ -45,13 +61,13 @@ namespace StatsPlus
         /// <param name="value">The Value to add.</param>
         public StatsPlusCollection<T> AddValue(T value)
         {
-            if (!Data.ContainsKey(value.Name))
+            if (!Data.ContainsKey(value.Identifier))
             {
-                Data.Add(value.Name, value);
+                Data.Add(value.Identifier, value);
             }
             else
             {
-                Debug.LogError("The Collection <b>" + Name + "</b> already contains an Object named <b>" + value.Name + "</b>.");
+                Debug.LogError("The Collection <b>" + Name + "</b> already contains an Object named <b>" + value.Identifier + "</b>.");
             }
             return this;
         }

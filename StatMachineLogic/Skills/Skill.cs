@@ -37,7 +37,7 @@ namespace StatsPlus
 
             foreach (SkillEffect effect in Effects)
             {
-                if (effect.affectsStatName.Equals(stat.Name))
+                if (effect.affectsStatName.Equals(stat.Identifier))
                 {
                     value = effect.ProcessStat(stat, value, effect.ignoreSkillStrength ? 1f : strength, statMachine);
                 }
@@ -83,7 +83,7 @@ namespace StatsPlus
         }
 
         public string PrettyPrint() {
-            string result = "Skill|name:" + Name + "|content:";
+            string result = "Skill|name:" + Identifier + "|content:";
             foreach (SkillEffect effect in Effects)
             {
                 result += "(" + effect.PrettyPrint() + ")";

@@ -6,9 +6,12 @@ namespace StatsPlus
     /// </summary>
     public class ConditionEquals :Condition
     {
-        object compareTo;
+        public ConditionEquals(string identifier, object compareTo) {
+            this.compareTo = new FactObject(identifier, compareTo);
+        }
 
-        public ConditionEquals(string factIdentifier, object compareTo) : base(factIdentifier) {
+        public ConditionEquals(FactObject compareTo)
+        {
             this.compareTo = compareTo;
         }
 

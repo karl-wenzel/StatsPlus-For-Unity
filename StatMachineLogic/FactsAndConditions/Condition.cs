@@ -6,21 +6,22 @@ namespace StatsPlus
     /// </summary>
     public abstract class Condition
     {
-        string factIdentifier;
-
-        /// <summary>
-        /// Creates a new condition.
-        /// </summary>
-        /// <param name="factIdentifier">The identifier of the fact this condition should search for evaluation.</param>
-        public Condition(string factIdentifier) {
-            this.factIdentifier = factIdentifier;
-        }
+        public Fact compareTo;
 
         public abstract bool IsTrueForFact(Fact fact);
 
+        /// <summary>
+        /// Tries to evaluate the condition. If the fact this should compare to isn't found, returns false.
+        /// </summary>
+        /// <param name="statMachineLink">This stat machine will be searched for a matching fact with the same identifier.</param>
         public bool SelfEvaluate(StatMachine statMachineLink) {
-            Fact searchResultFact = statMachineLink.FactStorage.GetValue(factIdentifier);
-            return IsTrueForFact(searchResultFact);
+            Fact searchResultFact = default;
+            if (statMachineLink.FactStorage.HasValue(compareTo.Identifier, out searchResultFact)) {
+                return IsTrueForFact(searchResultFact);
+            }
+            else {
+                return false;
+            }
         }
     }
 }
