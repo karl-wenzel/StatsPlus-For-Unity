@@ -48,6 +48,19 @@ namespace StatsPlus
         }
 
         /// <summary>
+        /// Creates a new int fact and returns a reference for further editing
+        /// </summary>
+        /// <param name="Identifier">Id of this fact. Should be used for referencing this fact in skill effects and conditions.</param>
+        /// <param name="InitialValue">The value this fact should initially have</param>
+        /// <returns>A reference to the created fact</returns>
+        public FactInt CreateFactInt(string Identifier, int InitialValue)
+        {
+            FactInt createdCondition = new FactInt(Identifier, InitialValue);
+            FactStorage.AddValue(createdCondition);
+            return createdCondition;
+        }
+
+        /// <summary>
         /// Searches for a requested Stat and overwrites the default value of this Stat with the value calculated after applying the StackEntries passed.
         /// </summary>
         /// <param name="StatName">The name of the Stat to apply to.</param>

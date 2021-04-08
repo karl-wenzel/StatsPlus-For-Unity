@@ -2,34 +2,34 @@
 
 namespace StatsPlus
 {
-    public class FactFloat : Fact
+    public class FactInt : Fact
     {
-        public float value;
+        public int value;
 
-        public FactFloat(string Identifier, float value) : base(Identifier)
+        public FactInt(string Identifier, int value) : base(Identifier)
         {
             this.value = value;
         }
 
-        public FactFloat SetValue(float value)
+        public FactInt SetValue(int value)
         {
             this.value = value;
             return this;
         }
 
-        public FactFloat Add(float value)
+        public FactInt Add(int value)
         {
             this.value += value;
             return this;
         }
 
-        public FactFloat Substract(float value)
+        public FactInt Substract(int value)
         {
             this.value -= value;
             return this;
         }
 
-        public FactFloat Multiply(float factor)
+        public FactInt Multiply(int factor)
         {
             value *= factor;
             return this;
@@ -37,7 +37,7 @@ namespace StatsPlus
 
         public override object getValueAsObject()
         {
-            return value;
+            return (double)value;
         }
 
         /// <summary>
@@ -45,13 +45,13 @@ namespace StatsPlus
         /// </summary>
         public override bool Equals(Fact other)
         {
-            if (other is FactFloat)
+            if (other is FactInt)
             {
-                return value == ((FactFloat)other).value;
+                return value == ((FactInt)other).value;
             }
             else
             {
-                Debug.LogWarning("You try comparing FactFloat and " + other.GetType() + ". This will always return false.");
+                Debug.LogWarning("You try comparing FactInt and " + other.GetType() + ". This will always return false.");
                 return false;
             }
         }
@@ -61,13 +61,13 @@ namespace StatsPlus
         /// </summary>
         public override bool Greater(Fact other)
         {
-            if (other is FactFloat)
+            if (other is FactInt)
             {
-                return value > ((FactFloat)other).value;
+                return value > ((FactInt)other).value;
             }
             else
             {
-                Debug.LogWarning("You try comparing FactFloat and " + other.GetType() + ". This will always return false.");
+                Debug.LogWarning("You try comparing FactInt and " + other.GetType() + ". This will always return false.");
                 return false;
             }
         }
@@ -77,13 +77,13 @@ namespace StatsPlus
         /// </summary>
         public override bool Less(Fact other)
         {
-            if (other is FactFloat)
+            if (other is FactInt)
             {
-                return value < ((FactFloat)other).value;
+                return value < ((FactInt)other).value;
             }
             else
             {
-                Debug.LogWarning("You try comparing FactFloat and " + other.GetType() + ". This will always return false.");
+                Debug.LogWarning("You try comparing FactInt and " + other.GetType() + ". This will always return false.");
                 return false;
             }
         }

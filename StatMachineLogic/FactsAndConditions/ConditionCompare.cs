@@ -15,6 +15,27 @@ namespace StatsPlus
 
         CompareMethod method;
 
+        bool doModulo;
+        float moduloValue;
+
+        /// <summary>
+        /// call this, to set up modulo application to the fact value.
+        /// </summary>
+        /// <param name="value">The value that should be used for the modulo operation.</param>
+        public Condition DoModulo(float value) {
+            doModulo = true;
+            moduloValue = value;
+            return this;
+        }
+
+        /// <summary>
+        /// Deactivates modulo application
+        /// </summary>
+        public Condition ResetModulo() {
+            doModulo = false;
+            return this;
+        }
+
         /// <summary>
         /// Create a new instance of ConditionCompare.
         /// </summary>
@@ -26,18 +47,22 @@ namespace StatsPlus
         }
 
         public override bool IsTrueForFact(Fact fact) {
+            double factValue = (double)fact.getValueAsObject();
+            if (doModulo) {
+                factValue = factValue % moduloValue;
+            }
             switch (method)
             {
                 case CompareMethod.Equals:
-                    return (compareTo.Equals(fact.getValueAsObject()));
+                    return factValue == (double)compareTo;
                 case CompareMethod.LessThan:
-                    return (double)fact.getValueAsObject() < (double)compareTo;
+                    return factValue < (double)compareTo;
                 case CompareMethod.LessEquals:
-                    return (double)fact.getValueAsObject() <= (double)compareTo;
+                    return factValue <= (double)compareTo;
                 case CompareMethod.GreaterThan:
-                    return (double)fact.getValueAsObject() > (double)compareTo;
+                    return factValue > (double)compareTo;
                 case CompareMethod.GreaterEquals:
-                    return (double)fact.getValueAsObject() >= (double)compareTo;
+                    return factValue >= (double)compareTo;
                 default:
                     return false;
             }
