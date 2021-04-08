@@ -57,5 +57,10 @@ namespace StatsPlus
             HasMinimum = false;
             return this;
         }
+
+        public override string PrettyPrint()
+        {
+            return "(Add|amount:" + amountToAdd + (HasMaximum ? "|maximum:" + Maximum : "") + (HasMinimum ? "|minimum:" + Minimum : "") + ";)";
+        }
     }
 }

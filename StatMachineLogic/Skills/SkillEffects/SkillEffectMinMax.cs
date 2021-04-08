@@ -53,5 +53,11 @@ namespace StatsPlus
             HasMinimum = false;
             return this;
         }
+
+        public override string PrettyPrint()
+        {
+            return "(MinMax|" + (HasMaximum ? "|max:" + Maximum : "") + (HasMinimum ? "|min:" + Minimum : "") + ";)";
+        }
+
     }
 }

@@ -32,5 +32,10 @@ namespace StatsPlus
             }
             return base.ProcessStat(stat, value, strength);
         }
+
+        public override string PrettyPrint()
+        {
+            return "(Multiply|" + "|factor:" + MultiplyWith + (AddToInitialValue ? "|ignoreOtherEffects" : "") + ";)";
+        }
     }
 }
