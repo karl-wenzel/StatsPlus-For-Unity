@@ -6,7 +6,6 @@ namespace StatsPlus
         public bool value;
 
         public ConditionBool(string ConditionIdentifier, bool value) : base(ConditionIdentifier) {
-            this.ConditionIdentifier = ConditionIdentifier;
             this.value = value;
         }
 

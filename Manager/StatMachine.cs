@@ -366,7 +366,7 @@ namespace StatsPlus
                 {
                     Strength = FunctionSolver.SolveSimpleLiteral(entry.StrengthFunction, variableAssignments);
                 }
-                value = entry.Skillset.ProcessStat(stat, value, Strength);
+                value = entry.Skillset.ProcessStat(stat, value, Strength, this);
             }
             return value;
         }

@@ -20,7 +20,7 @@ namespace StatsPlus
             this.AddToInitialValue = UseInitialValue;
         }
 
-        public override object ProcessStat(Stat stat, object value, float strength)
+        public override object ProcessStat(Stat stat, object value, float strength, StatMachine statMachine)
         {
             if (stat is StatFloat)
             {
@@ -30,7 +30,7 @@ namespace StatsPlus
             {
                 return (int)(AddToInitialValue ? (float)stat.GetValueAsObject() * (MultiplyWith-1f) * strength + (float)value : (float)value * (MultiplyWith * strength));
             }
-            return base.ProcessStat(stat, value, strength);
+            return base.ProcessStat(stat, value, strength, statMachine);
         }
 
         public override string PrettyPrint()

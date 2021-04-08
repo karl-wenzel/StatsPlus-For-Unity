@@ -19,7 +19,7 @@ namespace StatsPlus
         {
         }
 
-        public override object ProcessStat(Stat stat, object value, float strength)
+        public override object ProcessStat(Stat stat, object value, float strength, StatMachine statMachine)
         {
             if (HasMaximum) {
                 value = Mathf.Min((float)value, Maximum);
@@ -27,7 +27,7 @@ namespace StatsPlus
             if (HasMinimum) {
                 value = Mathf.Max((float)value, Minimum);
             }
-            return base.ProcessStat(stat, value, strength);
+            return base.ProcessStat(stat, value, strength, statMachine);
         }
 
         public SkillEffectMinMax SetMaximum(float Maximum) {

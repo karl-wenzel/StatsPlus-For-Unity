@@ -17,7 +17,7 @@ namespace StatsPlus
             this.newValue = newValue;
         }
 
-        public override object ProcessStat(Stat stat, object value, float strength)
+        public override object ProcessStat(Stat stat, object value, float strength, StatMachine statMachine)
         {
             if (stat is StatFloat)
             {
@@ -31,7 +31,7 @@ namespace StatsPlus
             {
                 return (bool)newValue;
             }
-            return base.ProcessStat(stat, value, strength);
+            return base.ProcessStat(stat, value, strength, statMachine);
         }
 
         public override string PrettyPrint()

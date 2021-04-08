@@ -7,7 +7,6 @@ namespace StatsPlus
 
         public ConditionFloat(string ConditionIdentifier, float value) : base(ConditionIdentifier)
         {
-            this.ConditionIdentifier = ConditionIdentifier;
             this.value = value;
         }
 
