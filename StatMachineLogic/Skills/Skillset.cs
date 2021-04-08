@@ -25,7 +25,7 @@ namespace StatsPlus
             string result = "Skillset|name:" + Name + "|content:";
             foreach (Skill skill in Data.Values)
             {
-                result += skill.PrettyPrint();
+                result += "(" + skill.PrettyPrint() + ")";
             }
             return result + ";";
         }

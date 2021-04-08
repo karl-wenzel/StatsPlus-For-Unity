@@ -34,33 +34,9 @@ namespace StatsPlus
             return base.ProcessStat(stat, value, strength);
         }
 
-        public SkillEffectAdd SetMaximum(float Maximum) {
-            this.Maximum = Maximum;
-            HasMaximum = true;
-            return this;
-        }
-
-        public SkillEffectAdd ResetMaximum() {
-            HasMaximum = false;
-            return this;
-        }
-
-        public SkillEffectAdd SetMinimum(float Minimum)
-        {
-            this.Minimum = Minimum;
-            HasMinimum = true;
-            return this;
-        }
-
-        public SkillEffectAdd ResetMinimum()
-        {
-            HasMinimum = false;
-            return this;
-        }
-
         public override string PrettyPrint()
         {
-            return "(Add|amount:" + amountToAdd + (HasMaximum ? "|maximum:" + Maximum : "") + (HasMinimum ? "|minimum:" + Minimum : "") + ";)";
+            return "Add|amount:" + amountToAdd + ";";
         }
     }
 }

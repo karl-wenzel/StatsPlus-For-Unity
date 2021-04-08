@@ -56,7 +56,7 @@ namespace StatsPlus
 
         public override string PrettyPrint()
         {
-            return "(MinMax|" + (HasMaximum ? "|max:" + Maximum : "") + (HasMinimum ? "|min:" + Minimum : "") + ";)";
+            return "MinMax|" + (HasMaximum ? "|max:" + Maximum : "") + (HasMinimum ? "|min:" + Minimum : "") + ";";
         }
 
     }

@@ -57,7 +57,7 @@ namespace StatsPlus
             string result = "Skill|name:" + Name + "|content:";
             foreach (SkillEffect effect in Effects)
             {
-                result += effect.PrettyPrint();
+                result += "(" + effect.PrettyPrint() + ")";
             }
             return result + ";";
         }

@@ -36,7 +36,7 @@ namespace StatsPlus
 
         public override string PrettyPrint()
         {
-            return "(Overwrite|" + "|value:" + newValue + ";)";
+            return "Overwrite|" + "|value:" + newValue + ";";
         }
     }
 }

@@ -35,7 +35,7 @@ namespace StatsPlus
 
         public override string PrettyPrint()
         {
-            return "(Multiply|" + "|factor:" + MultiplyWith + (AddToInitialValue ? "|ignoreOtherEffects" : "") + ";)";
+            return "Multiply" + "|factor:" + MultiplyWith + (AddToInitialValue ? "|ignoreOtherEffects" : "") + ";";
         }
     }
 }

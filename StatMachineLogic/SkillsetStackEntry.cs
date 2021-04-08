@@ -84,7 +84,7 @@ namespace StatsPlus
 
         public string PrettyPrint()
         {
-            return "Stack|" + (StrengthFunction == null ? "strength:"+Strength : "strengthFunction:"+StrengthFunction) + "|content:" + Skillset.PrettyPrint() + ";";
+            return "(" + "Stack|" + (StrengthFunction == null ? "strength:"+Strength : "strengthFunction:"+StrengthFunction) + "|content:" + Skillset.PrettyPrint() + ";" + ")";
         }
     }
 }
