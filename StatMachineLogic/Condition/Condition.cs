@@ -1,13 +1,10 @@
 ﻿
 namespace StatsPlus
 {
-    public class Condition
+    public class Condition : Named
     {
-        public string ConditionIdentifier = "";
-
-        public Condition(string ConditionIdentifier) {
-            this.ConditionIdentifier = ConditionIdentifier;
+        public Condition(string ConditionIdentifier) : base(ConditionIdentifier)
+        {
         }
-
     }
 }

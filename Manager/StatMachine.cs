@@ -13,12 +13,38 @@ namespace StatsPlus
         public StatEntity Owner;
         public Statset Statset;
         public List<SkillsetStackEntry> SkillsetStack = new List<SkillsetStackEntry>();
+        public StatsPlusCollection<Condition> ConditionStorage = new StatsPlusCollection<Condition>("ConditionStorageForStatMachine");
         public int LastRefresh = -1;
 
         public StatMachine(StatEntity owner, Statset statset)
         {
             Owner = owner;
             Statset = statset;
+        }
+
+        /// <summary>
+        /// Creates a new boolean Condition and returns a reference for further editing
+        /// </summary>
+        /// <param name="ConditionIdentifier">Id of this condition. Should be used for referencing this condition in skill effects</param>
+        /// <param name="InitialValue">The value this condition should initially have</param>
+        /// <returns>A reference to the created condition</returns>
+        public ConditionBool CreateConditionBool(string ConditionIdentifier, bool InitialValue) {
+            ConditionBool createdCondition = new ConditionBool(ConditionIdentifier, InitialValue);
+            ConditionStorage.AddValue(createdCondition);
+            return createdCondition;
+        }
+
+        /// <summary>
+        /// Creates a new float Condition and returns a reference for further editing
+        /// </summary>
+        /// <param name="ConditionIdentifier">Id of this condition. Should be used for referencing this condition in skill effects</param>
+        /// <param name="InitialValue">The value this condition should initially have</param>
+        /// <returns>A reference to the created condition</returns>
+        public ConditionFloat CreateConditionFloat(string ConditionIdentifier, float InitialValue)
+        {
+            ConditionFloat createdCondition = new ConditionFloat(ConditionIdentifier, InitialValue);
+            ConditionStorage.AddValue(createdCondition);
+            return createdCondition;
         }
 
         /// <summary>

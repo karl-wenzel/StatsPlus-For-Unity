@@ -34,7 +34,7 @@ namespace StatsPlus
             {
                 return Data[IdName];
             }
-            Debug.LogError("Couldn't find " + IdName + " in collection.");
+            Debug.LogError("Couldn't find " + IdName + " in collection " + Name + ".");
             return default;
         }
 
@@ -85,7 +85,7 @@ namespace StatsPlus
 
         public override string ToString()
         {
-            string toString = "Collection with " + Data.Count + " entries: ";
+            string toString = "Collection " + Name + " with " + Data.Count + " entries: ";
             foreach (string key in Data.Keys)
             {
                 toString += key + " ";
