@@ -26,6 +26,9 @@ namespace StatsPlus
             return this;
         }
 
-
+        public override object getValueAsObject()
+        {
+            return value;
+        }
     }
 }
