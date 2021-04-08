@@ -13,7 +13,7 @@ namespace StatsPlus
         public StatEntity Owner;
         public Statset Statset;
         public List<SkillsetStackEntry> SkillsetStack = new List<SkillsetStackEntry>();
-        public StatsPlusCollection<Condition> ConditionStorage = new StatsPlusCollection<Condition>("ConditionStorageForStatMachine");
+        public StatsPlusCollection<Fact> FactStorage = new StatsPlusCollection<Fact>("FactStorageForStatMachine");
         public int LastRefresh = -1;
 
         public StatMachine(StatEntity owner, Statset statset)
@@ -23,27 +23,27 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// Creates a new boolean Condition and returns a reference for further editing
+        /// Creates a new boolean fact and returns a reference for further editing
         /// </summary>
-        /// <param name="ConditionIdentifier">Id of this condition. Should be used for referencing this condition in skill effects</param>
-        /// <param name="InitialValue">The value this condition should initially have</param>
-        /// <returns>A reference to the created condition</returns>
-        public ConditionBool CreateConditionBool(string ConditionIdentifier, bool InitialValue) {
-            ConditionBool createdCondition = new ConditionBool(ConditionIdentifier, InitialValue);
-            ConditionStorage.AddValue(createdCondition);
+        /// <param name="Identifier">Id of this fact. Should be used for referencing this fact in skill effects and conditions.</param>
+        /// <param name="InitialValue">The value this fact should initially have</param>
+        /// <returns>A reference to the created fact</returns>
+        public FactBool CreateFactBool(string Identifier, bool InitialValue) {
+            FactBool createdCondition = new FactBool(Identifier, InitialValue);
+            FactStorage.AddValue(createdCondition);
             return createdCondition;
         }
 
         /// <summary>
-        /// Creates a new float Condition and returns a reference for further editing
+        /// Creates a new float fact and returns a reference for further editing
         /// </summary>
-        /// <param name="ConditionIdentifier">Id of this condition. Should be used for referencing this condition in skill effects</param>
-        /// <param name="InitialValue">The value this condition should initially have</param>
-        /// <returns>A reference to the created condition</returns>
-        public ConditionFloat CreateConditionFloat(string ConditionIdentifier, float InitialValue)
+        /// <param name="Identifier">Id of this fact. Should be used for referencing this fact in skill effects and conditions.</param>
+        /// <param name="InitialValue">The value this fact should initially have</param>
+        /// <returns>A reference to the created fact</returns>
+        public FactFloat CreateFactFloat(string Identifier, float InitialValue)
         {
-            ConditionFloat createdCondition = new ConditionFloat(ConditionIdentifier, InitialValue);
-            ConditionStorage.AddValue(createdCondition);
+            FactFloat createdCondition = new FactFloat(Identifier, InitialValue);
+            FactStorage.AddValue(createdCondition);
             return createdCondition;
         }
 

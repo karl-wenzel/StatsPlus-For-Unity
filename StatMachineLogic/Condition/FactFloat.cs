@@ -1,34 +1,34 @@
 ﻿
 namespace StatsPlus
 {
-    public class ConditionFloat : Condition
+    public class FactFloat : Fact
     {
         public float value;
 
-        public ConditionFloat(string ConditionIdentifier, float value) : base(ConditionIdentifier)
+        public FactFloat(string Identifier, float value) : base(Identifier)
         {
             this.value = value;
         }
 
-        public ConditionFloat SetValue(float value)
+        public FactFloat SetValue(float value)
         {
             this.value = value;
             return this;
         }
 
-        public ConditionFloat Add(float value)
+        public FactFloat Add(float value)
         {
             this.value += value;
             return this;
         }
 
-        public ConditionFloat Substract(float value)
+        public FactFloat Substract(float value)
         {
             this.value -= value;
             return this;
         }
 
-        public ConditionFloat Multiply(float factor)
+        public FactFloat Multiply(float factor)
         {
             value *= factor;
             return this;

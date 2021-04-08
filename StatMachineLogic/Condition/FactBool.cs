@@ -1,15 +1,15 @@
 ﻿
 namespace StatsPlus
 {
-    public class ConditionBool : Condition
+    public class FactBool : Fact
     {
         public bool value;
 
-        public ConditionBool(string ConditionIdentifier, bool value) : base(ConditionIdentifier) {
+        public FactBool(string Identifier, bool value) : base(Identifier) {
             this.value = value;
         }
 
-        public ConditionBool SetValue(bool value) {
+        public FactBool SetValue(bool value) {
             this.value = value;
             return this;
         }
@@ -21,7 +21,7 @@ namespace StatsPlus
         /// <summary>
         /// inverts the current boolean value
         /// </summary>
-        public ConditionBool Flip() {
+        public FactBool Flip() {
             value = !value;
             return this;
         }
