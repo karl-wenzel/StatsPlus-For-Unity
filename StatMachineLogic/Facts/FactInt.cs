@@ -15,7 +15,7 @@ namespace StatsPlus
         int moduloValue;
 
         /// <summary>
-        /// call this, to set up modulo application.
+        /// Call this, to set up modulo application.
         /// </summary>
         /// <param name="value">The value that should be used for the modulo operation.</param>
         public FactInt DoModulo(int value)
@@ -72,17 +72,18 @@ namespace StatsPlus
 
         public override object getValueAsObject()
         {
-            return (double)value;
+            return value;
         }
 
         /// <summary>
-        /// returns true if the first value and the compared value are equal
+        /// Returns true if the value and the compared value are equal.
         /// </summary>
+        /// <param name="other">The fact to compare to</param>
         public override bool Equals(Fact other)
         {
             if (other is FactInt)
             {
-                return value == ((FactInt)other).value;
+                return (int)getValueAsObject() == (int)((FactInt)other).getValueAsObject();
             }
             else
             {
@@ -92,13 +93,14 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// returns true if the first value is greater than the compared value
+        /// Returns true if the value is greater than the compared value.
         /// </summary>
+        /// <param name="other">The fact to compare to</param>
         public override bool Greater(Fact other)
         {
             if (other is FactInt)
             {
-                return value > ((FactInt)other).value;
+                return (int)getValueAsObject() > (int)((FactInt)other).getValueAsObject();
             }
             else
             {
@@ -108,13 +110,14 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// returns true if the first value is less than the compared value
+        /// Returns true if the value is less than the compared value.
         /// </summary>
+        /// <param name="other">The fact to compare to</param>
         public override bool Less(Fact other)
         {
             if (other is FactInt)
             {
-                return value < ((FactInt)other).value;
+                return (int)getValueAsObject() < (int)((FactInt)other).getValueAsObject();
             }
             else
             {

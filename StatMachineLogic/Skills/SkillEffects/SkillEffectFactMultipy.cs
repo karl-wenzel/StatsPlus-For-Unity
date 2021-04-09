@@ -1,4 +1,4 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using StatsPlus;
@@ -27,14 +27,15 @@ namespace StatsPlus
             {
                 if (searchResultFact is FactFloat || searchResultFact is FactInt)
                 {
-                    float factor = (float)searchResultFact.getValueAsObject();
+                    float factor = Convert.ToSingle(searchResultFact.getValueAsObject());
+                    float tempValue = Convert.ToSingle(value);
                     if (stat is StatFloat)
                     {
-                        return AddToInitialValue ? (float)stat.GetValueAsObject() * (factor - 1f) * strength + (float)value : (float)value * (factor * strength);
+                        return AddToInitialValue ? (float)stat.GetValueAsObject() * (factor - 1f) * strength + tempValue : tempValue * (factor * strength);
                     }
                     if (stat is StatInt)
                     {
-                        return (int)(AddToInitialValue ? (float)stat.GetValueAsObject() * (factor - 1f) * strength + (float)value : (float)value * (factor * strength));
+                        return (int)(AddToInitialValue ? (int)stat.GetValueAsObject() * (factor - 1f) * strength + tempValue : tempValue * (factor * strength));
                     }
                 }
             }

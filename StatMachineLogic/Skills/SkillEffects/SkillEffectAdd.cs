@@ -29,7 +29,7 @@ namespace StatsPlus
             }
             if (stat is StatInt)
             {
-                return (int)((float)value + (amountToAdd * strength));
+                return (int)((int)value + (amountToAdd * strength));
             }
             return base.ProcessStat(stat, value, strength, statMachine);
         }

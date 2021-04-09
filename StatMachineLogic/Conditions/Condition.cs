@@ -15,12 +15,15 @@ namespace StatsPlus
         /// Tries to evaluate the condition. If the fact this should compare to isn't found, returns false.
         /// </summary>
         /// <param name="statMachineLink">This stat machine will be searched for a matching fact with the same identifier.</param>
-        public bool SelfEvaluate(StatMachine statMachineLink) {
+        public bool SelfEvaluate(StatMachine statMachineLink)
+        {
             Fact searchResultFact = default;
-            if (statMachineLink.FactStorage.HasValue(compareTo.Identifier, out searchResultFact)) {
+            if (statMachineLink.FactStorage.HasValue(compareTo.Identifier, out searchResultFact))
+            {
                 return IsTrueForFact(searchResultFact);
             }
-            else {
+            else
+            {
                 return false;
             }
         }

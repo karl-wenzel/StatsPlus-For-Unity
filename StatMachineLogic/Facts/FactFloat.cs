@@ -41,8 +41,9 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// returns true if the first value and the compared value are equal
+        /// Returns true if the value and the compared value are equal.
         /// </summary>
+        /// <param name="other">The fact to compare to</param>
         public override bool Equals(Fact other)
         {
             if (other is FactFloat)
@@ -57,8 +58,9 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// returns true if the first value is greater than the compared value
+        /// Returns true if the value is greater than the compared value.
         /// </summary>
+        /// <param name="other">The fact to compare to</param>
         public override bool Greater(Fact other)
         {
             if (other is FactFloat)
@@ -73,8 +75,9 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// returns true if the first value is less than the compared value
+        /// Returns true if the value is less than the compared value.
         /// </summary>
+        /// <param name="other">The fact to compare to</param>
         public override bool Less(Fact other)
         {
             if (other is FactFloat)
