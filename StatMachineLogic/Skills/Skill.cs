@@ -41,13 +41,22 @@ namespace StatsPlus
             {
                 if (effect.affectsStatName.Equals(stat.Identifier))
                 {
+                    bool AllConditionsTrue = true;
+
                     //evaluate the conditions in the SkillEffect. If one condition is false, continue with next SkillEffect
                     foreach (Condition condition in effect.Conditions)
                     {
-                        if (condition.SelfEvaluate(statMachine) == false) continue;
+                        if (condition.SelfEvaluate(statMachine) == false)
+                        {
+                            AllConditionsTrue = false;
+                            break;
+                        }
                     }
 
-                    value = effect.ProcessStat(stat, value, effect.ignoreSkillStrength ? 1f : strength, statMachine);
+                    if (AllConditionsTrue)
+                    {
+                        value = effect.ProcessStat(stat, value, effect.ignoreSkillStrength ? 1f : strength, statMachine);
+                    }
                 }
             }
             return value;

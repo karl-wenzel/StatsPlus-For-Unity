@@ -16,7 +16,7 @@ namespace StatsPlus
         }
 
         public override bool IsTrueForFact(Fact fact) {
-            return fact.getValueAsObject().Equals(compareTo);
+            return fact.getValueAsObject().Equals(compareTo.getValueAsObject());
         }
     }
 }
