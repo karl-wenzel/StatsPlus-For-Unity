@@ -3,18 +3,25 @@ namespace StatsPlus
 {
     public class FactIntFromStat : FactInt
     {
-        string FactName;
+        string StatName;
         StatMachine StatMachineLink;
 
-        public FactIntFromStat(string Identifier, string FactName, StatMachine StatMachineLink) : base(Identifier, 0)
+        /// <summary>
+        /// <para>Creates a FactInt, which is linked to a Stat.</para>
+        /// <para>Be carefull when creating Facts that get their values from stats, as an evaluation is called everytime the value gets asked and you can possibly create infinite loops with this.</para>
+        /// </summary>
+        /// <param name="Identifier">Identifier of this Fact.</param>
+        /// <param name="StatToLink">The Stat that will output the value of this fact.</param>
+        /// <param name="StatMachineLink">The Stat machine that should hold this Stat.</param>
+        public FactIntFromStat(string Identifier, string StatToLink, StatMachine StatMachineLink) : base(Identifier, 0)
         {
-            this.FactName = FactName;
+            StatName = StatToLink;
             this.StatMachineLink = StatMachineLink;
         }
 
         public override object getValueAsObject()
         {
-            return StatMachineLink.GetStatValueInt(FactName);
+            return StatMachineLink.GetStatValueInt(StatName);
         }
     }
 }
