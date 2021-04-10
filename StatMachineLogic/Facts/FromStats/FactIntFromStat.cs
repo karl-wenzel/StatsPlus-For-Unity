@@ -1,4 +1,6 @@
-﻿namespace StatsPlus
+﻿using StatsPlus.Hidden;
+
+namespace StatsPlus
 {
     public class FactIntFromStat : FactInt, ICheckForInfinityLoop
     {
@@ -14,8 +16,14 @@
         /// <param name="StatMachineLink">The Stat machine that should hold this Stat.</param>
         public FactIntFromStat(string Identifier, string StatToLink, StatMachine StatMachineLink) : base(Identifier, 0)
         {
-            StatName = StatToLink;
-            this.StatMachineLink = StatMachineLink;
+            if (FactFromStatSyntaxChecker.Check(StatMachineLink, StatToLink, typeof(StatInt)))
+            {
+                StatName = StatToLink;
+                this.StatMachineLink = StatMachineLink;
+            }
+            else {
+                throw new System.Exception("Could not create FactIntFromStat as the linked stat is not derived from StatInt or does not exist in this statMachine.");
+            }
         }
 
         public override object getValueAsObject()

@@ -1,4 +1,6 @@
-﻿namespace StatsPlus
+﻿using StatsPlus.Hidden;
+
+namespace StatsPlus
 {
     public class FactObjectFromStat : FactObject, ICheckForInfinityLoop
     {
@@ -14,8 +16,15 @@
         /// <param name="StatMachineLink">The Stat machine that should hold this Stat.</param>
         public FactObjectFromStat(string Identifier, string StatToLink, StatMachine StatMachineLink) : base(Identifier, false)
         {
-            StatName = StatToLink;
-            this.StatMachineLink = StatMachineLink;
+            if (FactFromStatSyntaxChecker.Check(StatMachineLink, StatToLink, typeof(Stat)))
+            {
+                StatName = StatToLink;
+                this.StatMachineLink = StatMachineLink;
+            }
+            else
+            {
+                throw new System.Exception("Could not create FactObjectFromStat as the linked stat does not exist in this statMachine.");
+            }
         }
 
         public override object getValueAsObject()
