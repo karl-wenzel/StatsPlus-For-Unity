@@ -22,6 +22,11 @@ namespace StatsPlus
             Statset = statset;
         }
 
+        public Stat AddStat(Stat StatToAdd) {
+            Statset.AddValue(StatToAdd);
+            return StatToAdd;
+        }
+
         /// <summary>
         /// Creates a new boolean fact and returns a reference for further editing
         /// </summary>
@@ -60,8 +65,16 @@ namespace StatsPlus
             return createdCondition;
         }
 
-        public void AddFactToStorage(Fact fact) {
+        /// <summary>
+        /// Adds a fact to the FactStorage.
+        /// </summary>
+        public Fact AddFactToStorage(Fact fact) {
             FactStorage.AddValue(fact);
+            return fact;
+        }
+
+        public object GetFactValue(string Identifier) {
+            return FactStorage.GetValue(Identifier).getValueAsObject();
         }
 
         /// <summary>

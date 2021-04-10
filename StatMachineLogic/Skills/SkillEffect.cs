@@ -8,9 +8,8 @@ namespace StatsPlus
     /// <summary>
     /// A SkillEffect describes one effect a skill has on the behaviour of the stat machine.
     /// </summary>
-    public abstract class SkillEffect : Printable
+    public abstract class SkillEffect : Named, Printable
     {
-        public string affectsStatName;
         public bool ignoreSkillStrength;
 
         /// <summary>
@@ -18,9 +17,8 @@ namespace StatsPlus
         /// </summary>
         public List<Condition> Conditions = new List<Condition>();
 
-        public SkillEffect(string affectsStatName, bool ignoreSkillStrength, params Condition[] Conditions)
+        public SkillEffect(string affectsStatName, bool ignoreSkillStrength, params Condition[] Conditions) : base(affectsStatName)
         {
-            this.affectsStatName = affectsStatName;
             this.ignoreSkillStrength = ignoreSkillStrength;
             this.Conditions.AddRange(Conditions);
         }
@@ -32,9 +30,9 @@ namespace StatsPlus
         /// <summary>
         /// Add a condition that must be resolved true for the skill effect to apply.
         /// </summary>
-        /// <param name="Condition">The Condition that should be added</param>
-        public SkillEffect AddCondition(Condition Condition) {
-            Conditions.Add(Condition);
+        /// <param name="condition">The Condition that should be added</param>
+        public SkillEffect AddCondition(Condition condition) {
+            Conditions.Add(condition);
             return this;
         }
 
@@ -42,9 +40,22 @@ namespace StatsPlus
         /// Add one or more conditions that must be resolved true for the skill effect to apply.
         /// </summary>
         /// <param name="Condition">The Conditions that should be added</param>
-        public SkillEffect AddConditions(params Condition[] Conditions)
+        public SkillEffect AddConditions(params Condition[] conditions)
         {
-            this.Conditions.AddRange(Conditions);
+            Conditions.AddRange(conditions);
+            return this;
+        }
+
+        public SkillEffect RemoveCondition(Condition condition) {
+            Conditions.Remove(condition);
+            return this;
+        }
+
+        public SkillEffect RemoveConditions(params Condition[] conditions) {
+            foreach (Condition condition in conditions)
+            {
+                RemoveCondition(condition);
+            }
             return this;
         }
 

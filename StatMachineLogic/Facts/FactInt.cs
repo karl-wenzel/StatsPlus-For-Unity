@@ -81,9 +81,9 @@ namespace StatsPlus
         /// <param name="other">The fact to compare to</param>
         public override bool Equals(Fact other)
         {
-            if (other is FactInt)
+            if (other is FactInt myOther)
             {
-                return (int)getValueAsObject() == (int)((FactInt)other).getValueAsObject();
+                return (int)getValueAsObject() == (int)myOther.getValueAsObject();
             }
             else
             {
@@ -98,9 +98,26 @@ namespace StatsPlus
         /// <param name="other">The fact to compare to</param>
         public override bool Greater(Fact other)
         {
-            if (other is FactInt)
+            if (other is FactInt myOther)
             {
-                return (int)getValueAsObject() > (int)((FactInt)other).getValueAsObject();
+                return (int)getValueAsObject() > (int)myOther.getValueAsObject();
+            }
+            else
+            {
+                Debug.LogWarning("You try comparing FactInt and " + other.GetType() + ". This will always return false.");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the value is greater than or equal to the compared value.
+        /// </summary>
+        /// <param name="other">The fact to compare to</param>
+        public override bool GreaterEquals(Fact other)
+        {
+            if (other is FactInt myOther)
+            {
+                return (int)getValueAsObject() >= (int)myOther.getValueAsObject();
             }
             else
             {
@@ -115,9 +132,26 @@ namespace StatsPlus
         /// <param name="other">The fact to compare to</param>
         public override bool Less(Fact other)
         {
-            if (other is FactInt)
+            if (other is FactInt myOther)
             {
-                return (int)getValueAsObject() < (int)((FactInt)other).getValueAsObject();
+                return (int)getValueAsObject() < (int)myOther.getValueAsObject();
+            }
+            else
+            {
+                Debug.LogWarning("You try comparing FactInt and " + other.GetType() + ". This will always return false.");
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the value is less than or equal to the compared value.
+        /// </summary>
+        /// <param name="other">The fact to compare to</param>
+        public override bool LessEquals(Fact other)
+        {
+            if (other is FactInt myOther)
+            {
+                return (int)getValueAsObject() <= (int)myOther.getValueAsObject();
             }
             else
             {

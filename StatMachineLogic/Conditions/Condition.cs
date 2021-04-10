@@ -18,7 +18,7 @@ namespace StatsPlus
         public bool SelfEvaluate(StatMachine statMachineLink)
         {
             Fact searchResultFact = default;
-            if (statMachineLink.FactStorage.HasValue(compareTo.Identifier, out searchResultFact))
+            if (statMachineLink.FactStorage.HasKey(compareTo.Identifier, out searchResultFact))
             {
                 return IsTrueForFact(searchResultFact);
             }

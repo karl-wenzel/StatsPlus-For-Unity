@@ -23,7 +23,7 @@ namespace StatsPlus
         public override object ProcessStat(Stat stat, object value, float strength, StatMachine statMachine)
         {
             Fact searchResultFact = default;
-            if (statMachine.FactStorage.HasValue(MultiplyWith, out searchResultFact))
+            if (statMachine.FactStorage.HasKey(MultiplyWith, out searchResultFact))
             {
                 if (searchResultFact is FactFloat || searchResultFact is FactInt)
                 {

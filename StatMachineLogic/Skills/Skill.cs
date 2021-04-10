@@ -13,12 +13,17 @@ namespace StatsPlus
         /// <summary>
         /// A list of all effects the skill has.
         /// </summary>
-        public List<SkillEffect> Effects = new List<SkillEffect>();
+        List<SkillEffect> Effects = new List<SkillEffect>();
+
+        /// <summary>
+        /// A list of affected stats to quickly discard stats that are not affected by this skill
+        /// </summary>
+        List<string> AffectedStats = new List<string>();
 
         /// <summary>
         /// A list of all conditions. If one of them is not true, the skill will not apply.
         /// </summary>
-        public List<Condition> Conditions = new List<Condition>();
+        List<Condition> Conditions = new List<Condition>();
 
 
         /// <summary>
@@ -31,6 +36,10 @@ namespace StatsPlus
         /// <returns>The value of the stat after all skill effects have been applied.</returns>
         public object ProcessStat(Stat stat, object value, float strength, StatMachine statMachine)
         {
+            if (!AffectedStats.Contains(stat.Identifier)) {
+                return value;
+            }
+
             //evaluate the conditions in this skill
             foreach (Condition condition in Conditions)
             {
@@ -39,8 +48,9 @@ namespace StatsPlus
 
             foreach (SkillEffect effect in Effects)
             {
-                if (effect.affectsStatName.Equals(stat.Identifier))
+                if (effect.Identifier.Equals(stat.Identifier))
                 {
+                    
                     bool AllConditionsTrue = true;
 
                     //evaluate the conditions in the SkillEffect. If one condition is false, continue with next SkillEffect
@@ -77,6 +87,11 @@ namespace StatsPlus
             return this;
         }
 
+        public Skill RemoveCondition(Condition Condition) {
+            Conditions.Remove(Condition);
+            return this;
+        }
+
         /// <summary>
         /// Add one or more conditions that must be resolved true for the skill to apply.
         /// </summary>
@@ -96,12 +111,16 @@ namespace StatsPlus
         public Skill AddEffect(SkillEffect newEffect)
         {
             Effects.Add(newEffect);
+            AffectedStats.Add(newEffect.Identifier);
             return this;
         }
 
         public Skill AddEffects(params SkillEffect[] newEffects)
         {
-            Effects.AddRange(newEffects);
+            foreach (SkillEffect effect in newEffects)
+            {
+                AddEffect(effect);
+            }
             return this;
         }
 
@@ -109,12 +128,19 @@ namespace StatsPlus
         {
             if (Effects.Count > atIndex)
             {
+                AffectedStats.Remove(Effects[atIndex].Identifier);
                 Effects.RemoveAt(atIndex);
             }
             else
             {
                 Debug.LogError("Couldn't remove effect at " + atIndex + " because the Skill only has " + Effects.Count + " effects.");
             }
+            return this;
+        }
+
+        public Skill RemoveEffect(SkillEffect effect) {
+            AffectedStats.Remove(effect.Identifier);
+            Effects.Remove(effect);
             return this;
         }
 

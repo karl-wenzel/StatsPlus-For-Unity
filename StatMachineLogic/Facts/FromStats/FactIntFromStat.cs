@@ -1,7 +1,6 @@
-﻿
-namespace StatsPlus
+﻿namespace StatsPlus
 {
-    public class FactIntFromStat : FactInt
+    public class FactIntFromStat : FactInt, ICheckForInfinityLoop
     {
         string StatName;
         StatMachine StatMachineLink;
@@ -21,7 +20,7 @@ namespace StatsPlus
 
         public override object getValueAsObject()
         {
-            return StatMachineLink.GetStatValueInt(StatName);
+            return StatMachineLink.GetStatValue(StatName);
         }
     }
 }

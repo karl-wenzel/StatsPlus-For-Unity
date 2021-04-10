@@ -38,7 +38,7 @@ namespace StatsPlus
         /// Returns true if the facts content is greater than or equal to another facts content.
         /// </summary>
         /// <param name="other">The fact to compare to</param>
-        public bool GreaterEquals(Fact other) {
+        public virtual bool GreaterEquals(Fact other) {
             return Greater(other) || Equals(other);
         }
 
@@ -46,7 +46,7 @@ namespace StatsPlus
         /// Returns true if the facts content is less than or equal to another facts content.
         /// </summary>
         /// <param name="other">The fact to compare to</param>
-        public bool LessEquals(Fact other) {
+        public virtual bool LessEquals(Fact other) {
             return Less(other) || Equals(other);
         }
     }

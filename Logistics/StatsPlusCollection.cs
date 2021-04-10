@@ -41,7 +41,7 @@ namespace StatsPlus
         /// Returns true if the collections contains a value with this id. If true, overwrites objectFound with this object.
         /// </summary>
         /// <param name="IdName">The Name of this named object.</param>
-        public bool HasValue(string IdName, out T objectFound)
+        public bool HasKey(string IdName, out T objectFound)
         {
             if (Data.ContainsKey(IdName))
             {
