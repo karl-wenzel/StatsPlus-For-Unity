@@ -104,9 +104,9 @@ namespace StatsPlus
             string toString = "Collection " + Name + " with " + Data.Count + " entries: ";
             foreach (string key in Data.Keys)
             {
-                toString += key + " ";
+                toString += " ("+ key + ") ";
             }
-            return toString;
+            return toString + ";";
         }
     }
 

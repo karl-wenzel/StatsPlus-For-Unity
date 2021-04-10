@@ -1,4 +1,6 @@
-﻿namespace StatsPlus
+﻿using StatsPlus.Hidden;
+
+namespace StatsPlus
 {
     public class FactBoolFromStat : FactBool, ICheckForInfinityLoop
     {

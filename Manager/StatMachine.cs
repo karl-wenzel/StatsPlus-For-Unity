@@ -148,7 +148,7 @@ namespace StatsPlus
             }
             else
             {
-                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain a float.");
+                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain a float. Type: " + Stat.GetType().Name);
             }
             return 0f;
         }
@@ -167,7 +167,7 @@ namespace StatsPlus
             }
             else
             {
-                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain a boolean.");
+                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain a boolean. Type: " + Stat.GetType().Name);
             }
             return false;
         }
@@ -186,7 +186,7 @@ namespace StatsPlus
             }
             else
             {
-                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain an integer.");
+                Debug.LogError("The requested Stat <b>" + StatName + "</b> does not contain an integer. Type: " + Stat.GetType().Name);
             }
             return 0;
         }

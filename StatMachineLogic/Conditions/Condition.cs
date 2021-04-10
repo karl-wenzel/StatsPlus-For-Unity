@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace StatsPlus
+﻿namespace StatsPlus
 {
     /// <summary>
     /// A condition holds information about how to evaluate if a fact meets the requirements. You may add conditions to Skills and SkillEffects.
