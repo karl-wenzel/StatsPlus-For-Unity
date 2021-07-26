@@ -8,7 +8,8 @@ namespace StatsPlus.Functions
     {
         public List<BaseFunction> EvaluateTerms = new List<BaseFunction>();
 
-        public BaseFunction(params BaseFunction[] Terms) {
+        public BaseFunction(params BaseFunction[] Terms)
+        {
             if (Terms.Length > 0)
             {
                 EvaluateTerms.AddRange(Terms);
@@ -18,7 +19,8 @@ namespace StatsPlus.Functions
         /// <summary>
         /// Adds a Term to the evaluation
         /// </summary>
-        public BaseFunction AddTerm(BaseFunction Term) {
+        public BaseFunction AddTerm(BaseFunction Term)
+        {
             EvaluateTerms.Add(Term);
             return this;
         }
@@ -28,7 +30,8 @@ namespace StatsPlus.Functions
         /// </summary>
         /// <param name="Term"></param>
         /// <returns></returns>
-        public BaseFunction RemoveTerm(BaseFunction Term) {
+        public BaseFunction RemoveTerm(BaseFunction Term)
+        {
             EvaluateTerms.Remove(Term);
             return this;
         }
@@ -37,7 +40,8 @@ namespace StatsPlus.Functions
         /// Tries to solve the function without any variable assignements. Will log an error and/or return unexpected results if there are unassigned variables in the function
         /// </summary>
         /// <returns>The calculation result</returns>
-        public float SimpleSolve() {
+        public float SimpleSolve()
+        {
             return Solve(null);
         }
 
@@ -47,5 +51,24 @@ namespace StatsPlus.Functions
         /// <param name="assignments">The variable assignements, in which assignements for every unassigned variable in the function should be saved</param>
         /// <returns>The calculation result</returns>
         public abstract float Solve(FunctionSolver.VariableAssignments assignments);
+
+        public override string ToString()
+        {
+            string result = "";
+            result += GetType().Name + "(";
+            foreach (BaseFunction func in EvaluateTerms)
+            {
+                if (func == null)
+                {
+                    result += "NULL";
+                }
+                else
+                {
+                    result += func.ToString();
+                }
+            }
+            result += ")";
+            return result;
+        }
     }
 }

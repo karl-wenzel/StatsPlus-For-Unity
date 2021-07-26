@@ -19,12 +19,14 @@ namespace StatsPlus
                 Data.Add(variableName, variableValue);
                 return this;
             }
-            public VariableAssignments AddOrReplaceVariable(string variableName, float variableValue) {
+            public VariableAssignments AddOrReplaceVariable(string variableName, float variableValue)
+            {
                 if (Data.ContainsKey(variableName))
                 {
                     Data[variableName] = variableValue;
                 }
-                else {
+                else
+                {
                     Data.Add(variableName, variableValue);
                 }
                 return this;
@@ -35,14 +37,16 @@ namespace StatsPlus
         /// this converter takes a nested term of the form Func1(Float(3),Var(a)) and returns some derived class of BaseFunction, which can be solved by calling .Solve on it
         /// </summary>
         /// <param name="input">a string with the term to convert</param>
-        public static BaseFunction ConvertNestedTermToClassBasedFormat(string input) {
+        public static BaseFunction ConvertNestedTermToClassBasedFormat(string input)
+        {
             if (input.Length == 0) return null;
             string funcName = "";
             for (int i = 0; i < input.Length; i++)
             {
-                if (input[i] == '(') {
+                if (input[i] == '(')
+                {
                     funcName = input.Substring(0, i);
-                    input = input.Substring(i+1, input.Length-i-2);
+                    input = input.Substring(i + 1, input.Length - i - 2);
 
                     break;
                 }
@@ -52,11 +56,20 @@ namespace StatsPlus
             switch (funcName)
             {
                 case "Float":
-                    return new FloatFunction(System.Single.Parse(input));
+                    float a = 0f;
+                    if (System.Single.TryParse(input, out a))
+                    {
+                        return new FloatFunction(a);
+                    }
+                    else
+                    {
+                        Debug.LogWarning("Warning: Error parsing " + input + " as float, reverting to 0f as default.");
+                        return new FloatFunction(0f);
+                    }
                 case "Var":
                     return new VariableFunction(input);
                 case "FloatOrVar":
-                    float result;
+                    float result = 0f;
                     if (System.Single.TryParse(input, out result))
                     {
                         return new FloatFunction(result);
@@ -66,9 +79,22 @@ namespace StatsPlus
                     break;
             }
             //terms need to be constructed for every other function type
-            string[] splitTerms = input.Split(',');
-            BaseFunction[] terms = new BaseFunction[splitTerms.Length];
-            for (int a = 0; a < splitTerms.Length; a++)
+            List<string> splitTerms = new List<string>();
+            int lastAreaEnd = 0;
+            int OpenedBrackets = 0;
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == ',' && OpenedBrackets == 0)
+                {
+                    splitTerms.Add(input.Substring(lastAreaEnd, i - lastAreaEnd));
+                    lastAreaEnd = i + 1;
+                }
+                else if (input[i] == '(') OpenedBrackets++;
+                else if (input[i] == ')') OpenedBrackets--;
+            }
+            splitTerms.Add(input.Substring(lastAreaEnd, input.Length - lastAreaEnd));
+            BaseFunction[] terms = new BaseFunction[splitTerms.Count];
+            for (int a = 0; a < splitTerms.Count; a++)
             {
                 terms[a] = ConvertNestedTermToClassBasedFormat(splitTerms[a]);
             }
@@ -126,17 +152,17 @@ namespace StatsPlus
         {
             if (Literal.Contains("[") || Literal.Contains("]"))
             {
-                Debug.Log(Literal+" Format Info: [ and ] not allowed.");
+                Debug.Log(Literal + " Format Info: [ and ] not allowed.");
                 return false;
             }
             if (Literal.Contains("--"))
             {
-                Debug.Log(Literal+" Format Info: -- not allowed.");
+                Debug.Log(Literal + " Format Info: -- not allowed.");
                 return false;
             }
             if (Literal.Contains("-(-"))
             {
-                Debug.Log(Literal+" Format Info: -(- not allowed.");
+                Debug.Log(Literal + " Format Info: -(- not allowed.");
                 return false;
             }
             int OpenedBrackets = 0;
@@ -153,8 +179,9 @@ namespace StatsPlus
                     continue;
                 }
             }
-            if (OpenedBrackets > 0) {
-                Debug.LogError(Literal+" Format Info: Literal not well formatted. Couldn't close all brackets.");
+            if (OpenedBrackets > 0)
+            {
+                Debug.LogError(Literal + " Format Info: Literal not well formatted. Couldn't close all brackets.");
                 return false;
             }
             return true;

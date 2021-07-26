@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using StatsPlus;
 using StatsPlus.Functions;
+using UnityEngine;
 
 namespace StatsPlus.Functions
 {
