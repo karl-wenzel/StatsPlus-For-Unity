@@ -46,12 +46,21 @@ namespace StatsPlus
 
                     break;
                 }
+                //go here if no brackets were found
+                funcName = "FloatOrVar";
             }
             switch (funcName)
             {
                 case "Float":
                     return new FloatFunction(System.Single.Parse(input));
                 case "Var":
+                    return new VariableFunction(input);
+                case "FloatOrVar":
+                    float result;
+                    if (System.Single.TryParse(input, out result))
+                    {
+                        return new FloatFunction(result);
+                    }
                     return new VariableFunction(input);
                 default:
                     break;
