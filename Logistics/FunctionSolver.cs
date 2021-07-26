@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using StatsPlus.Functions;
 
 namespace StatsPlus
 {
-    class FunctionSolver
+    public class FunctionSolver
     {
         public static float NeutralElementMultiplication = 1f;
         public static float NeutralElementAddition = 0f;
@@ -28,6 +29,83 @@ namespace StatsPlus
                 }
                 return this;
             }
+        }
+
+        /// <summary>
+        /// this converter takes a nested term of the form Func1(Float(3),Var(a)) and returns some derived class of BaseFunction, which can be solved by calling .Solve on it
+        /// </summary>
+        /// <param name="input">a string with the term to convert</param>
+        public static BaseFunction ConvertNestedTermToClassBasedFormat(string input) {
+            if (input.Length == 0) return null;
+            string funcName = "";
+            for (int i = 0; i < input.Length; i++)
+            {
+                if (input[i] == '(') {
+                    funcName = input.Substring(0, i);
+                    input = input.Substring(i+1, input.Length-i-2);
+
+                    break;
+                }
+            }
+            switch (funcName)
+            {
+                case "Float":
+                    return new FloatFunction(System.Single.Parse(input));
+                case "Var":
+                    return new VariableFunction(input);
+                default:
+                    break;
+            }
+            //terms need to be constructed for every other function type
+            string[] splitTerms = input.Split(',');
+            BaseFunction[] terms = new BaseFunction[splitTerms.Length];
+            for (int a = 0; a < splitTerms.Length; a++)
+            {
+                terms[a] = ConvertNestedTermToClassBasedFormat(splitTerms[a]);
+            }
+
+            switch (funcName)
+            {
+                case "Abs":
+                    return new AbsoluteFunction(terms);
+                case "Absolute":
+                    return new AbsoluteFunction(terms);
+                case "Add":
+                    return new AddFunction(terms);
+                case "+":
+                    return new AddFunction(terms);
+                case "Div":
+                    return new DivideFunction(terms);
+                case "Divide":
+                    return new DivideFunction(terms);
+                case "/":
+                    return new DivideFunction(terms);
+                case ":":
+                    return new DivideFunction(terms);
+                case "Log":
+                    return new LogFunction(terms);
+                case "Multiply":
+                    return new MultiplyFunction(terms);
+                case "Mul":
+                    return new MultiplyFunction(terms);
+                case "*":
+                    return new MultiplyFunction(terms);
+                case "Sub":
+                    return new SubtractFunction(terms);
+                case "Subtract":
+                    return new SubtractFunction(terms);
+                case "-":
+                    return new SubtractFunction(terms);
+                case "Pow":
+                    return new PowerFunction(terms);
+                case "Power":
+                    return new PowerFunction(terms);
+                case "^":
+                    return new PowerFunction(terms);
+                default:
+                    break;
+            }
+            return null;
         }
 
         /// <summary>

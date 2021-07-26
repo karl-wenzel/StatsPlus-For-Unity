@@ -9,7 +9,7 @@ namespace StatsPlus.Hidden
             if (statMachineLink.Statset.HasKey(StatId, out foundStat)) {
                 return foundStat.GetType().IsSubclassOf(expectedType) || foundStat.GetType() == expectedType;
             }
-            else return false;
+            return false;
         }
     }
 }
