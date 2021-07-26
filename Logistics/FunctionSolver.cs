@@ -34,10 +34,17 @@ namespace StatsPlus
         }
 
         /// <summary>
-        /// this converter takes a nested term of the form Func1(Float(3),Var(a)) and returns some derived class of BaseFunction, which can be solved by calling .Solve on it
+        /// this converter takes a nested term of the form Func1(Func2(3,b),a) and returns some derived class of BaseFunction, which can be solved by calling .Solve on it
         /// </summary>
         /// <param name="input">a string with the term to convert</param>
         public static BaseFunction ConvertNestedTermToClassBasedFormat(string input)
+        {
+            //prepare input
+            input = input.Replace(" ", "");
+            return InternConvertNestedTermToClassBasedFormat(input);
+        }
+
+        protected static BaseFunction InternConvertNestedTermToClassBasedFormat(string input)
         {
             if (input.Length == 0) return null;
             string funcName = "";
@@ -96,7 +103,7 @@ namespace StatsPlus
             BaseFunction[] terms = new BaseFunction[splitTerms.Count];
             for (int a = 0; a < splitTerms.Count; a++)
             {
-                terms[a] = ConvertNestedTermToClassBasedFormat(splitTerms[a]);
+                terms[a] = InternConvertNestedTermToClassBasedFormat(splitTerms[a]);
             }
 
             switch (funcName)
