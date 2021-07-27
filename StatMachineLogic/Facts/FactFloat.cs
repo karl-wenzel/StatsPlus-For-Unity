@@ -17,19 +17,19 @@ namespace StatsPlus
             return this;
         }
 
-        public FactFloat Add(float value)
+        public virtual FactFloat Add(float value)
         {
             this.value += value;
             return this;
         }
 
-        public FactFloat Substract(float value)
+        public virtual FactFloat Substract(float value)
         {
             this.value -= value;
             return this;
         }
 
-        public FactFloat Multiply(float factor)
+        public virtual FactFloat Multiply(float factor)
         {
             value *= factor;
             return this;
@@ -48,7 +48,7 @@ namespace StatsPlus
         {
             if (other is FactFloat)
             {
-                return value == ((FactFloat)other).value;
+                return (float)getValueAsObject() == (float)((FactFloat)other).getValueAsObject();
             }
             else
             {
@@ -65,7 +65,7 @@ namespace StatsPlus
         {
             if (other is FactFloat)
             {
-                return value > ((FactFloat)other).value;
+                return (float)getValueAsObject() > (float)((FactFloat)other).getValueAsObject();
             }
             else
             {
@@ -82,7 +82,7 @@ namespace StatsPlus
         {
             if (other is FactFloat)
             {
-                return value < ((FactFloat)other).value;
+                return (float)getValueAsObject() < (float)((FactFloat)other).getValueAsObject();
             }
             else
             {
