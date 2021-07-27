@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using StatsPlus;
 using System;
+using StatsPlus.Functions;
 
 namespace StatsPlus
 {
@@ -10,7 +11,7 @@ namespace StatsPlus
     {
         public readonly Skillset Skillset;
         public float Strength;
-        public string StrengthFunction;
+        public BaseFunction StrengthFunction;
         public readonly float Length;
         public readonly float EntryTime;
 
@@ -31,6 +32,15 @@ namespace StatsPlus
         public SkillsetStackEntry(Skillset skillset, string strengthFunction, float length, float entryTime, bool ignoreTimeScale)
         {
             Skillset = skillset ?? throw new ArgumentNullException(nameof(skillset));
+            SetStrengthFunction(FunctionSolver.ConvertNestedTermToClassBasedFormat(strengthFunction));
+            Length = length;
+            EntryTime = entryTime;
+            IgnoreTimeScale = ignoreTimeScale;
+        }
+
+        public SkillsetStackEntry(Skillset skillset, BaseFunction strengthFunction, float length, float entryTime, bool ignoreTimeScale)
+        {
+            Skillset = skillset ?? throw new ArgumentNullException(nameof(skillset));
             SetStrengthFunction(strengthFunction);
             Length = length;
             EntryTime = entryTime;
@@ -47,17 +57,9 @@ namespace StatsPlus
             return this;
         }
 
-        public SkillsetStackEntry SetStrengthFunction(string strengthFunction) {
+        public SkillsetStackEntry SetStrengthFunction(BaseFunction strengthFunction) {
             Strength = 1f;
-            if (FunctionSolver.LiteralWellFormatted(strengthFunction))
-            {
-                StrengthFunction = strengthFunction;
-            }
-            else
-            {
-                Debug.LogError("Skipping strengthFunction " + strengthFunction + ", as it contains syntax errors.");
-                StrengthFunction = null;
-            }
+            StrengthFunction = strengthFunction;
             return this;
         }
 

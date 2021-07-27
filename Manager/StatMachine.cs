@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using StatsPlus;
+using StatsPlus.Functions;
 
 namespace StatsPlus
 {
@@ -305,6 +306,22 @@ namespace StatsPlus
         }
 
         /// <summary>
+        /// Place a new entry on the SkillsetStack of this StatMachine.
+        /// </summary>
+        /// <param name="skillset">A Reference to the Skillset which should be added.</param>
+        /// <param name="length">How long will this skillset be added? Pass -1 for infinite duration.
+        /// You can still remove infinite duration SkillStackEntries from the stack by saving the reference returned by this method.
+        /// Use RemoveSkillsetStackEntries(SkillsetStackEntry[]) to remove the created entry using this reference.</param>
+        /// <param name="strengthFunction">A strength modifier, expressed as a function. Use t in this function to get the active time of this SkillsetStackEntry.</param>
+        /// <param name="ignoreTimeScale">Will the time calculation be performed in unscaled time?</param>
+        public SkillsetStackEntry AddSkillsetStackEntry(Skillset skillset, float length, BaseFunction strengthFunction, bool ignoreTimeScale)
+        {
+            SkillsetStackEntry newEntry = CreateIndependentStackEntry(skillset, length, strengthFunction, ignoreTimeScale);
+            AddSkillsetStackEntry(newEntry);
+            return newEntry;
+        }
+
+        /// <summary>
         /// Adds a finished SkillsetStackEntry to the Stack.
         /// </summary>
         /// <param name="Entry">The finished Entry.</param>
@@ -329,6 +346,12 @@ namespace StatsPlus
         public SkillsetStackEntry CreateIndependentStackEntry(Skillset skillset, float length, float strength, bool ignoreTimeScale)
         {
             SkillsetStackEntry newEntry = new SkillsetStackEntry(skillset, strength, length, ignoreTimeScale ? Time.realtimeSinceStartup : Time.time, ignoreTimeScale);
+            return newEntry;
+        }
+
+        public SkillsetStackEntry CreateIndependentStackEntry(Skillset skillset, float length, BaseFunction strengthFunction, bool ignoreTimeScale)
+        {
+            SkillsetStackEntry newEntry = new SkillsetStackEntry(skillset, strengthFunction, length, ignoreTimeScale ? Time.realtimeSinceStartup : Time.time, ignoreTimeScale);
             return newEntry;
         }
 
@@ -394,7 +417,7 @@ namespace StatsPlus
                 }
                 else
                 {
-                    Strength = FunctionSolver.SolveSimpleLiteral(entry.StrengthFunction, variableAssignments);
+                    Strength = entry.StrengthFunction.Solve(variableAssignments);
                 }
                 value = entry.Skillset.ProcessStat(stat, value, Strength, this);
             }
