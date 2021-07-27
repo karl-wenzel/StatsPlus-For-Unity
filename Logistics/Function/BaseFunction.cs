@@ -55,7 +55,7 @@ namespace StatsPlus.Functions
         public override string ToString()
         {
             string result = "";
-            result += GetType().Name + "(";
+            result += GetType().Name.Substring(0, GetType().Name.Length-8) + "(";
             foreach (BaseFunction func in EvaluateTerms)
             {
                 if (func == null)
@@ -64,11 +64,11 @@ namespace StatsPlus.Functions
                 }
                 else
                 {
-                    result += func.ToString();
+                    result += func.ToString() + ",";
                 }
             }
-            result += ")";
-            return result;
+            if (EvaluateTerms.Count > 0) result = result.Substring(0, result.Length - 1);
+            return result + ")";
         }
     }
 }

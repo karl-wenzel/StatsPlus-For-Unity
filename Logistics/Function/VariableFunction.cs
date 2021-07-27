@@ -25,5 +25,10 @@ namespace StatsPlus.Functions
             }
             return 0;
         }
+
+        public override string ToString()
+        {
+            return "Var(" + variableName + ")";
+        }
     }
 }

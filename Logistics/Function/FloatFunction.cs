@@ -20,5 +20,10 @@ namespace StatsPlus.Functions
         public override float Solve(FunctionSolver.VariableAssignments assignments) {
             return f;
         }
+
+        public override string ToString()
+        {
+            return "Float(" + f + ")";
+        }
     }
 }
