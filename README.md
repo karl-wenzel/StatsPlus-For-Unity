@@ -10,3 +10,5 @@ You can:
 - Add Conditions to Skills and Skillsets to make them apply only in some cases
 - Conditions can even use other Stats for coparison
 - Desribe the amount a Skill affects your stats with a function, using the passed time or your custom variables
+
+[How to use this package in your unity project](./SETUP)
