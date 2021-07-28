@@ -84,12 +84,14 @@ We can also configure the strength of the skills. If we would call .AddSkillsetS
 
 ---
 
-Instead of a number, we can also put a function as the strength argument.
+Instead of a number, we can also put a **function** as the strength argument.
 These functions must be of type string and of the form:
 
+```
 Function = "Operator(Arguments)"
 
 Arguments = "Number,Arguments" | "Variable,Arguments" | "Function,Arguments" | ""
+```
 
 Example:
 
@@ -105,3 +107,7 @@ Example code of using a function to describe a SkillsetStack, that changes stren
 myStatMachine.AddSkillsetStackEntry(HealthPack, 3f, "Divide(t,10)", false);
 ```
 In this example a Skillset called HealthPack is added. It will be on the SkillsetStack for 3 seconds. During this time, its strength will increase with time. 1 second after it is applied, the strength should be at 0,1 and at the end of its lifetime at 0,3.
+
+##Conditions
+
+WIP
