@@ -108,6 +108,6 @@ myStatMachine.AddSkillsetStackEntry(HealthPack, 3f, "Divide(t,10)", false);
 ```
 In this example a Skillset called HealthPack is added. It will be on the SkillsetStack for 3 seconds. During this time, its strength will increase with time. 1 second after it is applied, the strength should be at 0,1 and at the end of its lifetime at 0,3.
 
-##Conditions
+## Conditions
 
 WIP
