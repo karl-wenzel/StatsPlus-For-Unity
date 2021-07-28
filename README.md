@@ -13,4 +13,4 @@ You can:
 
 [How to use this package in your unity project](./SETUP.md)
 
-[Documentation](./DOCUMENTATION)
+[Documentation](./DOCUMENTATION.md)
