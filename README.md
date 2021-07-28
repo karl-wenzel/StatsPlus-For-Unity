@@ -12,4 +12,5 @@ You can:
 - Desribe the amount a Skill affects your stats with a function, using the passed time or your custom variables
 
 [How to use this package in your unity project](./SETUP.md)
+
 [Documentation](./DOCUMENTATION)
