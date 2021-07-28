@@ -3,3 +3,4 @@
 #as this repo is scripts only, we dont need any meta files
 .meta
 #
+*.meta
